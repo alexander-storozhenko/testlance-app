@@ -5,9 +5,10 @@ class TestChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    p 'subscribed'
+    p 'unsubscribed'
     # Any cleanup needed when channel is unsubscribed
   end
+
   def test
     p 'asd'
   end

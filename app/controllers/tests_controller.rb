@@ -4,6 +4,7 @@ class TestsController < ApplicationController
   # GET /tests
   # GET /tests.json
   def index
+    p env['rack.session'][:kek]
     @tests = Test.all
   end
 

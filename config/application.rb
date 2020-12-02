@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module TestsAppApi
   class Application < Rails::Application
+    config.generators do |g|
+      g.orm :mongoid
+    end
     # Mongo::Client.new("mongodb://127.0.0.1:27017/tests_app_api")
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
