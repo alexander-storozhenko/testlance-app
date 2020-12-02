@@ -4,17 +4,21 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
-
+gem 'activerecord-session_store'
+# gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.7'
 gem 'pg'
 gem 'mongoid'
-gem 'rails_admin'
+gem 'mongoid-enum', git: 'git@github.com:boie0025/mongoid-enum', branch: 'nb/mongoid-6'
+gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
 gem 'grape'
 
+gem 'kaminari-mongoid'
+gem 'bcrypt'
+# gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
