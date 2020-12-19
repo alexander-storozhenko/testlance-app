@@ -11,7 +11,7 @@ module API
       end
 
       get 'results' do
-        questions_id = Test.find(test_id).questions
+        questions_id = Test.find(params[:test_id]).questions
         questions = Question.where(id: questions_id)
 
         present questions.map {|question| question.answers_result}

@@ -1,9 +1,5 @@
-class Test
-  include Mongoid::Document
-
-  # enum :type, [:radio, :checkbox, :text2image]
-  field :template_id, type: Integer
-  field :user_id, type: Integer
-  field :title, type: String
-  field :questions, type: Array, default: [] # {1}
+class Test < ApplicationRecord
+  belongs_to :test_templates,class_name:'TestTemplate'
+  belongs_to :users, class_name:'User'
+  has_many :questions
 end

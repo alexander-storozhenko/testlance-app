@@ -1,6 +1,7 @@
 require 'api/users/root'
 require 'api/tests/root'
-
+require 'api/questions/root'
+require 'api/recommends/root'
 module API
   class API < Grape::API
 
@@ -9,7 +10,12 @@ module API
         env['rack.session']
       end
     end
-    mount Users::Root
-    mount Tests::Root
+
+    namespace 'v1' do
+      mount Users::Root
+      mount Tests::Root
+      mount Questions::Root
+      mount Recommends::Root
+    end
   end
 end

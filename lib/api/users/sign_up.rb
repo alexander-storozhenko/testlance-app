@@ -13,10 +13,9 @@ module API
       post 'sign_up' do
         user = User.find_by(email: params[:email])
         User.create!(email: params[:email], password: params[:password]) unless user
-
         present user
-      rescue StandardError => e
-        error! e.message
+      # rescue StandardError => e
+      #   error! e.message
       end
     end
   end

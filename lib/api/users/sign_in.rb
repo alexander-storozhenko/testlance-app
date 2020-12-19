@@ -20,8 +20,8 @@ module API
         user.generate_token!
 
         present token: user.authentication_token
-      rescue StandardError => e
-        error! e.message
+      # rescue StandardError => e
+      #   error! e.message
       end
     end
   end

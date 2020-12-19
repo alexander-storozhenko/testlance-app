@@ -1,11 +1,14 @@
-class Recommend
-  include Mongoid::Document
-  include Mongoid::Enum
+class Recommend < ApplicationRecord
+  belongs_to :test_templates, class_name: 'TestTemplate'
 
-  field :user_id, type: Integer
-  field :test_templates, type: Array
-
-  def templates
-    TestTemplate.where(id: test_templates)
+  def from_template
+    case recommend_type
+    when 'carousel'
+      return
+    when 'card'
+      test_templates
+    when 'minitest'
+      MiniTest.find_by(_id: minitest_id)
+    end
   end
 end
