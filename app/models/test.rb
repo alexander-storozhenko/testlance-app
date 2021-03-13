@@ -1,9 +1,13 @@
-class Test
-  include Mongoid::Document
+class Test < ApplicationRecord
+  belongs_to :test_templates, class_name: 'TestTemplate'
+  belongs_to :users, class_name: 'User'
+  has_many :questions
 
-  # enum :type, [:radio, :checkbox, :text2image]
-  field :template_id, type: Integer
-  field :user_id, type: Integer
-  field :title, type: String
-  field :questions, type: Array, default: [] # {1}
+  def template
+    TestTemplate.find(test_templates_id)
+  end
+
+  def destroy_questions
+    Question.where(test_id: id).destroy_all
+  end
 end

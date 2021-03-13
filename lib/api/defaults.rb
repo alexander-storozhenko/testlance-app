@@ -4,7 +4,9 @@ module API
     included do
       def self.auth
         before do
-          unless session[:current_user]&.authentication_token && headers['Token'] && session[:current_user].authentication_token == headers['Token']
+          if session[:current_user]&.authentication_token && headers['Token'] && session[:current_user].authentication_token == headers['Token']
+            @user = session[:current_user]
+          else
             error!(message: "Authorization error: ", code: 403)
           end
         end

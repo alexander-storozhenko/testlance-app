@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount ActionCable.server => '/cable'
   mount API::API => '/api'
+
+  namespace :admin do
+    root to: "users#index"
+  end
   # delete 'users/sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user
   # devise_for :sessions
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
