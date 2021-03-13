@@ -4,18 +4,35 @@ module API
     class Results < Grape::API
       include Defaults
 
-      auth
+      format :json
+
+      # auth
 
       params do
-        requires :test_id
+        requires :test_id, type: Integer
       end
 
       get 'results' do
-        questions_id = Test.find(params[:test_id]).questions
-        questions = Question.where(id: questions_id)
+        time = DateTime.now.to_time
+        test = Test.find(params[:test_id])
+        user = User.find(1)
+        diff = time - DateTime.parse(test.user_data['start_time']).to_time
 
-        present questions.map {|question| question.answers_result}
+        data = {
+            lasted_time: '%d:%02d:%02d' % [ diff / 3600, (diff / 60) % 60, diff % 60 ],
+        }
+
+        raise 'result already exists' if Result.exists?(users: user, tests: test)
+
+        result = Result.create!(users: user, tests: test, data: data)
+
+        present result
+
+      rescue => error
+        error!(error,400)
       end
     end
   end
 end
+
+

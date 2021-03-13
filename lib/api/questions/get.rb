@@ -3,12 +3,26 @@ module API
   module Questions
     class Get < Grape::API
       include Defaults
+      format :json
 
-      auth
+      # auth
 
-      get ':id' do
-        present QuestionTemplate.find(params[:id])
-                    .generate_user_question!(user_id: session[:current_user].id, test_id: test.id)
+      params do
+        requires :test_id, type: Integer
+        requires :question_number, type: Integer
+      end
+
+      get 'get' do
+        test = Test.find(params[:test_id])
+        question = test.questions[params[:question_number]]
+
+        test.update!(user_data: {start_time: DateTime.now}) if params[:question_number].zero?
+
+        question_t = QuestionTemplate.find(question.question_templates_id)
+
+        p question,question_t
+        present question: question, data: question_t
+
       end
     end
   end

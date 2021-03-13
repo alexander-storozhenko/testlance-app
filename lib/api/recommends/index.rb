@@ -21,10 +21,10 @@ module API
 
         result = recommends.map do |r|
           test = r.from_template
-          author = User.find(test.users_id).name
-          {type: r.recommend_type, author: author}.merge(JSON.parse(test.to_json))
+          {type: r.recommend_type}.merge(tests: [JSON.parse(test.to_json)])
         end
 
+        p result
         present result
       end
     end

@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   def generate_token!
     self.authentication_token = SecureRandom.urlsafe_base64
-    return generate_token if User.find_by(authentication_token: self.authentication_token)
+    return generate_token! if User.find_by(authentication_token: self.authentication_token)
     save!
   end
 end

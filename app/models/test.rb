@@ -1,5 +1,13 @@
 class Test < ApplicationRecord
-  belongs_to :test_templates,class_name:'TestTemplate'
-  belongs_to :users, class_name:'User'
+  belongs_to :test_templates, class_name: 'TestTemplate'
+  belongs_to :users, class_name: 'User'
   has_many :questions
+
+  def template
+    TestTemplate.find(test_templates_id)
+  end
+
+  def destroy_questions
+    Question.where(test_id: id).destroy_all
+  end
 end

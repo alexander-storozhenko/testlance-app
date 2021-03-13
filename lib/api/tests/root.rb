@@ -1,15 +1,12 @@
-require_relative 'get'
+require_relative 'preview_info'
 require_relative 'results'
-require_relative 'recommends'
-require_relative 'pack'
+
 module API
 module Tests
   class Root < Grape::API
     namespace 'tests' do
-        mount Get
+        mount PreviewInfo
         mount Results
-        mount Recommends
-        mount Pack
       end
     end
   end
