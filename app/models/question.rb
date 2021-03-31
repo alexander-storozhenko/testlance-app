@@ -3,8 +3,15 @@ class Question < ApplicationRecord
   belongs_to :users, class_name: 'User'
   belongs_to :tests, class_name: 'Test', optional: true
 
+  alias_attribute :template, :question_templates
+
+  enum template: %w[one]
+
   def answers_result
-    true_answers & user_answers
+    case template.type
+    when :one
+      template.true_answers == user_answers
+    end
   end
 
   def set_answers(answers)

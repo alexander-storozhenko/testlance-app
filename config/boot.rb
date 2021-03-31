@@ -6,7 +6,7 @@ require 'rails/commands/server'
 module Rails
   class Server
     def default_options
-      super.merge({Port: 3000, Host: '192.168.0.12'}) if Rails.env.development?
+      super.merge({Port: 3000, Host: '192.168.0.11'}) if Rails.env.development?
     end
   end
 end

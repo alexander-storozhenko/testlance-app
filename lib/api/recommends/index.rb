@@ -24,7 +24,6 @@ module API
           {type: r.recommend_type}.merge(tests: [JSON.parse(test.to_json)])
         end
 
-        p result
         present result
       end
     end

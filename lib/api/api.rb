@@ -3,6 +3,7 @@ require 'api/tests/root'
 require 'api/questions/root'
 require 'api/recommends/root'
 require 'api/search/root'
+require 'api/profile/root'
 module API
   class API < Grape::API
 
@@ -18,6 +19,7 @@ module API
       mount Questions::Root
       mount Recommends::Root
       mount Search::Root
+      mount Profile::Root
     end
   end
 end
