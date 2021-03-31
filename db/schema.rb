@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210305182128) do
+ActiveRecord::Schema.define(version: 20210324155235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,13 +62,13 @@ ActiveRecord::Schema.define(version: 20210305182128) do
   create_table "test_templates", force: :cascade do |t|
     t.string   "title"
     t.string   "sub_title"
-    t.integer  "likes"
     t.integer  "plays"
     t.json     "colors"
     t.integer  "users_id"
     t.integer  "recommend_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.float    "rating"
     t.index ["recommend_id"], name: "index_test_templates_on_recommends_id", using: :btree
     t.index ["users_id"], name: "index_test_templates_on_users_id", using: :btree
   end

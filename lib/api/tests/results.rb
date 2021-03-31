@@ -15,14 +15,16 @@ module API
       get 'results' do
         time = DateTime.now.to_time
         test = Test.find(params[:test_id])
-        user = User.find(1)
+        user = User.find(2)
         diff = time - DateTime.parse(test.user_data['start_time']).to_time
+
+        results = Question.where(test: test).map{|question| question.answers_result }
+
+        # raise 'result already exists' if Result.exists?(users: user, tests: test)
 
         data = {
             lasted_time: '%d:%02d:%02d' % [ diff / 3600, (diff / 60) % 60, diff % 60 ],
         }
-
-        raise 'result already exists' if Result.exists?(users: user, tests: test)
 
         result = Result.create!(users: user, tests: test, data: data)
 
