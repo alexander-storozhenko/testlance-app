@@ -11,7 +11,7 @@ gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.3.7'
 gem 'pg'
-gem 'mongoid'
+#gem 'mongoid'
 # gem 'mongoid-enum', git: 'git@github.com:boie0025/mongoid-enum', branch: 'nb/mongoid-6'
 gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
 gem 'grape'
@@ -29,7 +29,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

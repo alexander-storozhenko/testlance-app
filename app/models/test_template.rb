@@ -1,5 +1,6 @@
 class TestTemplate < ApplicationRecord
   has_many :question_templates
+  belongs_to :recommends, class_name: "Recommend", optional: true
   belongs_to :users, class_name: "User"
   after_create :set_random_colors
 

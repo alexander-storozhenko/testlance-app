@@ -18,17 +18,17 @@ module API
           t.destroy_questions
           t.destroy
         end
-
+        p '1'
         test = Test.new(users_id: @user.id, test_templates_id: params[:test_t_id])
 
-        question_count = QuestionTemplate.where(test_template_id: params[:test_t_id]).count
+        question_count = QuestionTemplate.where(test_templates_id: params[:test_t_id]).count
 
         questions_t = QuestionTemplate.where(test_templates_id: params[:test_t_id])
 
         questions = questions_t.map{|q| q.from_template(@user.id, test.id)}
-
+        p '2'
         test.questions = questions
-
+        p test
         test.save!
 
         data = JSON.parse(test.template.to_json).merge({question_count: question_count})

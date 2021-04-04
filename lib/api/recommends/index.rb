@@ -20,8 +20,7 @@ module API
         recommends = Recommend.offset(page * RECOMMENDS_COUNT + [(page - 1), 0].max).limit(RECOMMENDS_COUNT)
 
         result = recommends.map do |r|
-          test = r.from_template
-          {type: r.recommend_type}.merge(tests: [JSON.parse(test.to_json)])
+          {type: r.recommend_type}.merge(tests: [JSON.parse(r.from_template.to_json)])
         end
 
         present result

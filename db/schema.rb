@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210324155235) do
+ActiveRecord::Schema.define(version: 20201219043440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20210324155235) do
   create_table "questions", force: :cascade do |t|
     t.json    "user_answers"
     t.integer "users_id"
-    t.integer "test_id"
+    t.integer "tests_id"
     t.integer "question_templates_id"
     t.index ["question_templates_id"], name: "index_questions_on_question_templates_id", using: :btree
-    t.index ["test_id"], name: "index_questions_on_tests_id", using: :btree
+    t.index ["tests_id"], name: "index_questions_on_tests_id", using: :btree
     t.index ["users_id"], name: "index_questions_on_users_id", using: :btree
   end
 
@@ -38,16 +38,6 @@ ActiveRecord::Schema.define(version: 20210324155235) do
     t.string   "recommend_type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-  end
-
-  create_table "results", force: :cascade do |t|
-    t.json     "data"
-    t.integer  "users_id"
-    t.integer  "tests_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tests_id"], name: "index_results_on_tests_id", using: :btree
-    t.index ["users_id"], name: "index_results_on_users_id", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -62,14 +52,14 @@ ActiveRecord::Schema.define(version: 20210324155235) do
   create_table "test_templates", force: :cascade do |t|
     t.string   "title"
     t.string   "sub_title"
+    t.integer  "likes"
     t.integer  "plays"
     t.json     "colors"
     t.integer  "users_id"
-    t.integer  "recommend_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.float    "rating"
-    t.index ["recommend_id"], name: "index_test_templates_on_recommends_id", using: :btree
+    t.integer  "recommends_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["recommends_id"], name: "index_test_templates_on_recommends_id", using: :btree
     t.index ["users_id"], name: "index_test_templates_on_users_id", using: :btree
   end
 
@@ -78,7 +68,6 @@ ActiveRecord::Schema.define(version: 20210324155235) do
     t.integer  "test_templates_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.json     "user_data"
     t.index ["test_templates_id"], name: "index_tests_on_test_templates_id", using: :btree
     t.index ["users_id"], name: "index_tests_on_users_id", using: :btree
   end
@@ -86,9 +75,8 @@ ActiveRecord::Schema.define(version: 20210324155235) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "password"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.string   "authentication_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

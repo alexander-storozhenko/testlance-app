@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
+- `gem install bundler`
+- `bundle install`
+- `rails db:create db:migrate`
+- `brew install mongodb-community@4.4` (_macos_)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Start
+- `brew services start mongodb/brew/mongodb-community` (_macos_)
+- `rails s`
