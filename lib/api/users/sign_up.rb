@@ -6,16 +6,20 @@ module API
       format :json
 
       params do
-        requires :email
-        requires :password
+        requires :name, type: String
+        requires :password, type: String
       end
 
       post 'sign_up' do
-        user = User.find_by(email: params[:email])
-        User.create!(email: params[:email], password: params[:password]) unless user
+        user = User.find_by(name: params[:name])
+
+        raise 'User exists' if user
+
+        User.create!(name: params[:name], password: params[:password])
+
         present user
-      # rescue StandardError => e
-      #   error! e.message
+       rescue StandardError => e
+         error! e.message
       end
     end
   end

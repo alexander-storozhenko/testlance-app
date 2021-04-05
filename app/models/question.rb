@@ -1,16 +1,14 @@
 class Question < ApplicationRecord
   belongs_to :question_template
   belongs_to :user
-  belongs_to :test, optional: true
+  belongs_to :tests, optional: true
 
-  alias_attribute :template, :question_templates
+  alias_attribute :template, :question_template
 
-  enum template: %w[one]
-
-  def answers_result
-    case template.type
-    when :one
-      template.true_answers == user_answers
+  def result
+    case template.question_type
+    when 'one'
+      template.true_answers.first == user_answers.first
     end
   end
 

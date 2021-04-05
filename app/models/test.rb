@@ -3,11 +3,14 @@ class Test < ApplicationRecord
   belongs_to :user
   has_many :questions
 
-  def template
-    TestTemplate.find(test_templates_id)
-  end
+  alias_attribute :template, :test_template
 
   def destroy_questions
-    Question.where(tests_id: id).destroy_all
+    Question.where(test_id: id).destroy_all
+  end
+
+  # TODO create parting answers
+  def calc_result
+    questions.select(&:result).count
   end
 end

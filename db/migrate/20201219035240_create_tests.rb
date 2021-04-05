@@ -4,8 +4,8 @@ class CreateTests < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :sub_title
 
-      t.integer :likes
-      t.integer :plays
+      t.integer :likes, default: 0
+      t.integer :plays, default: 0
 
       t.json :colors
 
@@ -15,8 +15,8 @@ class CreateTests < ActiveRecord::Migration[5.0]
     end
 
     create_table :tests do |t|
-      t.belongs_to :users
-      t.belongs_to :test_templates
+      t.belongs_to :user
+      t.belongs_to :test_template
 
       t.timestamps
     end

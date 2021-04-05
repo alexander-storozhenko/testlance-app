@@ -9,19 +9,21 @@ module API
       # auth
 
       params do
-        # requires :question_id, type: Integer
-        # requires :answers, type: JSON
+         requires :question_id, type: Integer
+         requires :answers, type: String
       end
 
-      post 'set_answers' do
-        # question = Question.find(params[:question_id])
-        #
-        # bad_request!('Not allowed', 403) if question.blank? || question.users_id != @user.id
+      patch 'set_answers' do
+         question = Question.find(params[:question_id])
 
-        # question.set_answers(params[:answers])
+         bad_request!('Not allowed', 403) if question.blank? #|| question.user_id != @user.id
 
-        # sleep 2
+         question.set_answers(JSON.parse(params[:answers]))
+
+         sleep 2
         present ''
+      rescue => error
+        error!(error, 400)
       end
     end
   end

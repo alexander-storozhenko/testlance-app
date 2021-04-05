@@ -1,28 +1,16 @@
 class User < ApplicationRecord
-  # include Mongoid::Document
-  # include Mongoid::Attributes::Dynamic
-  #
-  # field :email,              type: String, default: ""
-  # field :encrypted_password, type: String, default: ""
-  #
-  # field :reset_password_token,   type: String
-  # field :reset_password_sent_at, type: Time
-  #
-  # field :authentication_token, type: String
-  #
-  # field :remember_created_at, type: Time
-  #
-  # field :tests, type: Array
-  #
-  # field :recommend_ids, type: Array
-  #
-  # field :experience, type: Integer, default: 0
+  include BCrypt
+  #default_scope {select(User.column_names - %w(password_digest))}
+  has_secure_password
 
-  # validates :email, uniqueness: true
+  def generate_token
+    update(oauth_token: SecureRandom.base64(64))
+  end
 
-  def generate_token!
-    self.authentication_token = SecureRandom.urlsafe_base64
-    return generate_token! if User.find_by(authentication_token: self.authentication_token)
-    save!
+  def authenticate!(password)
+    result = try(:authenticate, password)
+    raise 'Incorrect login or password' unless result
+
+    result
   end
 end

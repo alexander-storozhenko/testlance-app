@@ -5,23 +5,25 @@ module API
       include Defaults
 
       format :json
-      format :json
+
       params do
         requires :login
         requires :password
       end
 
-      post 'sign_in' do
-        user = User.find_by(name: params[:login], password: params[:password])
+      patch 'sign_in' do
+        user = User.find_by(name: params[:login])
+
+        user.authenticate!(params[:password])
+
         session[:current_user] = user
 
-        error! 'incorrect login or password' unless user
+        user.generate_token
 
-        user.generate_token!
+        present token: user.oauth_token
 
-        present token: user.authentication_token
-      # rescue StandardError => e
-      #   error! e.message
+       rescue StandardError => e
+         error! e.message
       end
     end
   end

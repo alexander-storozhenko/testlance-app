@@ -12,26 +12,25 @@ module API
         requires :test_id, type: Integer
       end
 
-      get 'results' do
+      get 'result' do
         time = DateTime.now.to_time
-        test = Test.find(params[:test_id])
-        user = User.find(2)
-        diff = time - DateTime.parse(test.user_data['start_time']).to_time
 
-        results = Question.where(test: test).map{|question| question.answers_result }
+        test = Test.find(params[:test_id])
+
+        #diff = time - DateTime.parse(test.user_data['start_time']).to_time
+
+        result = test.calc_result
 
         # raise 'result already exists' if Result.exists?(users: user, tests: test)
 
         data = {
-            lasted_time: '%d:%02d:%02d' % [ diff / 3600, (diff / 60) % 60, diff % 60 ],
+            results: result,
+            #lasted_time: '%d:%02d:%02d' % [ diff / 3600, (diff / 60) % 60, diff % 60 ],
         }
 
-        result = Result.create!(users: user, tests: test, data: data)
-
-        present result
-
+        present Result.create!(test: test, data: data)
       rescue => error
-        error!(error,400)
+        error!(error, 400)
       end
     end
   end
