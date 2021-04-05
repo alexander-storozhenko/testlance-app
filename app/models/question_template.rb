@@ -1,7 +1,5 @@
 class QuestionTemplate < ApplicationRecord
-  belongs_to :test_templates, class_name: 'TestTemplate'
-
-  alias_attribute :test_template_id, :test_templates_id
+  belongs_to :test_template
 
   def generate_user_question!(user_id:, test_id:)
     user = User.find(user_id)
@@ -13,6 +11,6 @@ class QuestionTemplate < ApplicationRecord
   end
 
   def from_template(user_id, test_id)
-    Question.create!(users_id: user_id, tests_id: test_id, question_templates_id: id)
+    Question.create!(users_id: user_id, tests_id: test_id, question_template_id: id)
   end
 end

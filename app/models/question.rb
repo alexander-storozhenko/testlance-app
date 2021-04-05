@@ -1,7 +1,7 @@
 class Question < ApplicationRecord
-  belongs_to :question_templates, class_name: 'QuestionTemplate'
-  belongs_to :users, class_name: 'User'
-  belongs_to :tests, class_name: 'Test', optional: true
+  belongs_to :question_template
+  belongs_to :user
+  belongs_to :test, optional: true
 
   alias_attribute :template, :question_templates
 

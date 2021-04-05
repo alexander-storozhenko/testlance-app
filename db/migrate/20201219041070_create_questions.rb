@@ -8,7 +8,7 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       t.json :answers
       t.json :true_answers
 
-      t.belongs_to :test_templates
+      t.belongs_to :test_template
     end
 
     create_table :questions do |t|

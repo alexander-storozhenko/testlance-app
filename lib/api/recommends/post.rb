@@ -27,8 +27,7 @@ module API
         test_t = TestTemplate.create!(
             title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
             sub_title: Faker::Lorem.sentence(word_count: 3, supplemental: true, random_words_to_add: 4),
-            recommends: recommend,
-            author: user
+            user: user
         )
 
         5.times do |q|
@@ -37,7 +36,7 @@ module API
               text: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
               answers: ['answer 1', 'answer 2', 'true answer'],
               true_answers: [2],
-              test_templates: test_t
+              test_template: test_t
           )
         end
 

@@ -9,8 +9,7 @@ class CreateTests < ActiveRecord::Migration[5.0]
 
       t.json :colors
 
-      t.belongs_to :users # author
-      t.belongs_to :recommends
+      t.belongs_to :user
 
       t.timestamps
     end

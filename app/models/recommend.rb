@@ -1,5 +1,6 @@
 class Recommend < ApplicationRecord
-  has_many :test_templates, foreign_key: 'recommends_id'
+  has_many :test_recommends
+  has_many :test_templates, through: :test_recommends
 
   def from_template
     case recommend_type

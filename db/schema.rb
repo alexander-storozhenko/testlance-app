@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201219043440) do
+ActiveRecord::Schema.define(version: 20210405154447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20201219043440) do
     t.string  "text"
     t.json    "answers"
     t.json    "true_answers"
-    t.integer "test_templates_id"
-    t.index ["test_templates_id"], name: "index_question_templates_on_test_templates_id", using: :btree
+    t.integer "test_template_id"
+    t.index ["test_template_id"], name: "index_question_templates_on_test_template_id", using: :btree
   end
 
   create_table "questions", force: :cascade do |t|
@@ -49,25 +49,53 @@ ActiveRecord::Schema.define(version: 20201219043440) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
   end
 
+  create_table "students", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "student_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_subjects_on_student_id", using: :btree
+    t.index ["teacher_id"], name: "index_subjects_on_teacher_id", using: :btree
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.integer  "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "test_recommends", force: :cascade do |t|
+    t.integer "recommend_id"
+    t.integer "test_template_id"
+    t.index ["recommend_id"], name: "index_test_recommends_on_recommend_id", using: :btree
+    t.index ["test_template_id"], name: "index_test_recommends_on_test_template_id", using: :btree
+  end
+
   create_table "test_templates", force: :cascade do |t|
     t.string   "title"
     t.string   "sub_title"
     t.integer  "likes"
     t.integer  "plays"
     t.json     "colors"
-    t.integer  "users_id"
-    t.integer  "recommends_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["recommends_id"], name: "index_test_templates_on_recommends_id", using: :btree
-    t.index ["users_id"], name: "index_test_templates_on_users_id", using: :btree
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_test_templates_on_user_id", using: :btree
   end
 
   create_table "tests", force: :cascade do |t|
     t.integer  "users_id"
     t.integer  "test_templates_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.json     "user_data",         default: {}
     t.index ["test_templates_id"], name: "index_tests_on_test_templates_id", using: :btree
     t.index ["users_id"], name: "index_tests_on_users_id", using: :btree
   end
@@ -79,4 +107,8 @@ ActiveRecord::Schema.define(version: 20201219043440) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "subjects", "students"
+  add_foreign_key "subjects", "teachers"
+  add_foreign_key "test_recommends", "recommends"
+  add_foreign_key "test_recommends", "test_templates"
 end
