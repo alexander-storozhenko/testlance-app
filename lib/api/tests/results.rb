@@ -12,7 +12,7 @@ module API
         requires :test_id, type: Integer
       end
 
-      get 'result' do
+      get 'results' do
         time = DateTime.now.to_time
 
         test = Test.find(params[:test_id])

@@ -6,21 +6,21 @@ module API
 
       format :json
 
-      # auth
+      authorize!
 
       params do
-         requires :question_id, type: Integer
-         requires :answers, type: String
+        requires :question_id, type: Integer
+        requires :answers, type: String
       end
 
       patch 'set_answers' do
-         question = Question.find(params[:question_id])
+        question = Question.find(params[:question_id])
 
-         bad_request!('Not allowed', 403) if question.blank? #|| question.user_id != @user.id
+        bad_request!('Not allowed', 403) if question.blank? #|| question.user_id != @user.id
 
-         question.set_answers(JSON.parse(params[:answers]))
+        question.set_answers(JSON.parse(params[:answers]))
 
-         sleep 2
+        sleep 2
         present ''
       rescue => error
         error!(error, 400)

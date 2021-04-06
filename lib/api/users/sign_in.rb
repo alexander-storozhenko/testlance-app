@@ -7,12 +7,14 @@ module API
       format :json
 
       params do
-        requires :login
+        requires :name
         requires :password
       end
 
-      patch 'sign_in' do
-        user = User.find_by(name: params[:login])
+      put 'sign_in' do
+        user = User.find_by(name: params[:name])
+
+        raise 'Incorrect login or password' unless  user
 
         user.authenticate!(params[:password])
 
@@ -20,7 +22,7 @@ module API
 
         user.generate_token
 
-        present token: user.oauth_token
+        present access_token: user.oauth_token
 
        rescue StandardError => e
          error! e.message

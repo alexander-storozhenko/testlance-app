@@ -18,7 +18,7 @@ module API
 
         test.update!(user_data: {start_time: DateTime.now}) if params[:question_number].zero?
 
-        question_t = QuestionTemplate.find(question.question_templates_id)
+        question_t = QuestionTemplate.find(question.question_template_id)
 
         p question,question_t
         present question: question, data: question_t

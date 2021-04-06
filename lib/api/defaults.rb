@@ -2,9 +2,10 @@ module API
   module Defaults
     extend ActiveSupport::Concern
     included do
-      def self.auth
+      def self.authorize!
         before do
-          if session[:current_user]&.oauth_token && headers['Token'] && session[:current_user].oauth_token == headers['Token']
+          oauth_token = session[:current_user]&.oauth_token
+          if oauth_token && headers['Access Token'] && oauth_token == headers['Access Token']
             @user = session[:current_user]
           else
             error!(message: "Authorization error: ", code: 403)

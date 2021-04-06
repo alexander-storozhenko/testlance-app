@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   include BCrypt
-  #default_scope {select(User.column_names - %w(password_digest))}
   has_secure_password
 
   def generate_token

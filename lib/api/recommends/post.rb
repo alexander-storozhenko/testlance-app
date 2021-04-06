@@ -20,9 +20,6 @@ module API
             name: Faker::Name.name,
             password: 'root'
         )
-        recommend = Recommend.create!(
-            recommend_type: 'card'
-        )
 
         test_t = TestTemplate.create!(
             title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
@@ -39,6 +36,11 @@ module API
               test_template: test_t
           )
         end
+
+        Recommend.create!(
+            recommend_type: 'card',
+            test_templates: [test_t]
+        )
 
         present {}
       end
