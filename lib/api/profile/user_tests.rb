@@ -17,7 +17,7 @@ module API
         page = !params[:page] ? 0 : params[:page]
 
         #TODO debug user
-        tests = TestTemplate.where(users_id: 1).offset(page * LIMIT + [(page - 1), 0].max).limit(LIMIT)
+        tests = TestTemplate.where(author: 1).offset(page * LIMIT + [(page - 1), 0].max).limit(LIMIT)
 
         sleep 1
         present tests

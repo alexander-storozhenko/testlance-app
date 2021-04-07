@@ -92,7 +92,4 @@ ActiveRecord::Schema.define(version: 20210405165725) do
     t.datetime "updated_at",      null: false
   end
 
-  add_foreign_key "results", "tests"
-  add_foreign_key "test_recommends", "recommends"
-  add_foreign_key "test_recommends", "test_templates"
 end
