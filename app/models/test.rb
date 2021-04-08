@@ -1,7 +1,7 @@
 class Test < ApplicationRecord
   belongs_to :test_template
   belongs_to :user
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   alias_attribute :template, :test_template
 

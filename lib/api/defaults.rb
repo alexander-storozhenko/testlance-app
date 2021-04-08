@@ -1,17 +1,22 @@
 module API
   module Defaults
     extend ActiveSupport::Concern
+
     included do
-      def self.authorize!
+      def self.authorize!(role: :sub_admin)
         before do
-          oauth_token = session[:current_user]&.oauth_token
-          if oauth_token && headers['Access Token'] && oauth_token == headers['Access Token']
-            @user = session[:current_user]
-          else
-            error!(message: "Authorization error: ", code: 403)
-          end
+          authenticated =
+              case role
+              when :sub_admin
+                self.authenticated
+              when :admin
+                self.authenticated_admin
+              end
+
+          error!("403 Forbidden", 403) unless authenticated
         end
       end
     end
   end
 end
+

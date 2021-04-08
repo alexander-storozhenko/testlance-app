@@ -10,86 +10,117 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210405165725) do
+ActiveRecord::Schema.define(version: 2021_04_08_194129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "question_templates", force: :cascade do |t|
-    t.integer "question_type"
-    t.string  "text"
-    t.json    "answers"
-    t.json    "true_answers"
-    t.integer "test_template_id"
-    t.index ["test_template_id"], name: "index_question_templates_on_test_template_id", using: :btree
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.json    "user_answers",         default: {}
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "question_templates", id: :serial, force: :cascade do |t|
+    t.integer "question_type"
+    t.string "text"
+    t.json "answers"
+    t.json "true_answers"
+    t.integer "test_template_id"
+    t.index ["test_template_id"], name: "index_question_templates_on_test_template_id"
+  end
+
+  create_table "questions", id: :serial, force: :cascade do |t|
+    t.json "user_answers", default: {}
     t.integer "user_id"
     t.integer "test_id"
     t.integer "question_template_id"
-    t.index ["question_template_id"], name: "index_questions_on_question_template_id", using: :btree
-    t.index ["test_id"], name: "index_questions_on_test_id", using: :btree
-    t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
+    t.index ["question_template_id"], name: "index_questions_on_question_template_id"
+    t.index ["test_id"], name: "index_questions_on_test_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
-  create_table "recommends", force: :cascade do |t|
-    t.string   "recommend_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+  create_table "recommends", id: :serial, force: :cascade do |t|
+    t.string "recommend_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "results", force: :cascade do |t|
+  create_table "results", id: :serial, force: :cascade do |t|
     t.integer "test_id"
-    t.json    "data"
-    t.index ["test_id"], name: "index_results_on_test_id", using: :btree
+    t.json "data"
+    t.index ["test_id"], name: "index_results_on_test_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", null: false
-    t.text     "data"
+  create_table "sessions", id: :serial, force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["session_id"], name: "index_sessions_on_session_id", using: :btree
-    t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+    t.index ["session_id"], name: "index_sessions_on_session_id"
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "test_recommends", force: :cascade do |t|
+  create_table "test_recommends", id: :serial, force: :cascade do |t|
     t.integer "recommend_id"
     t.integer "test_template_id"
-    t.index ["recommend_id"], name: "index_test_recommends_on_recommend_id", using: :btree
-    t.index ["test_template_id"], name: "index_test_recommends_on_test_template_id", using: :btree
+    t.index ["recommend_id"], name: "index_test_recommends_on_recommend_id"
+    t.index ["test_template_id"], name: "index_test_recommends_on_test_template_id"
   end
 
-  create_table "test_templates", force: :cascade do |t|
-    t.string   "title"
-    t.string   "sub_title"
-    t.integer  "likes",      default: 0
-    t.integer  "plays",      default: 0
-    t.json     "colors"
-    t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.index ["user_id"], name: "index_test_templates_on_user_id", using: :btree
+  create_table "test_templates", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.string "sub_title"
+    t.integer "likes", default: 0
+    t.integer "plays", default: 0
+    t.json "options"
+    t.json "colors"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_test_templates_on_user_id"
   end
 
-  create_table "tests", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "test_template_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.json     "user_data",        default: {}
-    t.index ["test_template_id"], name: "index_tests_on_test_template_id", using: :btree
-    t.index ["user_id"], name: "index_tests_on_user_id", using: :btree
+  create_table "tests", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "test_template_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "user_data", default: {}
+    t.index ["test_template_id"], name: "index_tests_on_test_template_id"
+    t.index ["user_id"], name: "index_tests_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "password_digest"
-    t.string   "oauth_token"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "name", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.integer "role", default: 0, null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "authentication_token"
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

@@ -14,21 +14,21 @@ module API
 
       get 'preview_info' do
         @user = User.find(1)
-        Test.where(user_id: @user.id).each do |t|
-          t.destroy_questions
-          t.destroy
-        end
+        Test.where(user_id: @user.id).each{|t| t.destroy}
 
-        test = Test.new(user_id: @user.id, test_template_id: params[:test_t_id])
+        test_t = TestTemplate.find(params[:test_t_id])
+        test = Test.new(user: @user, test_template: test_t)
 
-        question_count = QuestionTemplate.where(test_template_id: params[:test_t_id]).count
-        questions_t = QuestionTemplate.where(test_template_id: params[:test_t_id])
+        questions_t = QuestionTemplate.where(test_template: test_t)
         questions = questions_t.map{|q| q.from_template(@user.id, test.id)}
 
         test.questions = questions
         test.save!
 
-        data = JSON.parse(test.template.to_json).merge({question_count: question_count})
+        data = {
+            options: test_t.options,
+            title: test_t.title
+        }
 
         present test_id: test.id, data: data
       end

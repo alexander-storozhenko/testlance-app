@@ -7,6 +7,7 @@ class CreateTests < ActiveRecord::Migration[5.0]
       t.integer :likes, default: 0
       t.integer :plays, default: 0
 
+      t.json :options
       t.json :colors
 
       t.belongs_to :user

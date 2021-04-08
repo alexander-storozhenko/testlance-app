@@ -18,12 +18,12 @@ module API
           hsh[:likes_count] += 1
         end
 
-        stats = {plays: stats[:plays], likes: stats[:likes]  /  stats[:likes_count] * 5}
+        #stats = {plays: stats[:plays], likes: stats[:likes]  /  stats[:likes_count] * 5}
 
         result = {
             user_name: @user.name,
             account_type: 'free',
-            **stats
+            #**stats
         }
 
         present result

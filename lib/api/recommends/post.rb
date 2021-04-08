@@ -18,7 +18,8 @@ module API
       post do
         user = User.create!(
             name: Faker::Name.name,
-            password: 'root'
+            email: Faker::Internet.unique.email,
+            password: 'rootroot'
         )
 
         test_t = TestTemplate.create!(
@@ -36,6 +37,8 @@ module API
               test_template: test_t
           )
         end
+
+        test_t.set_options
 
         Recommend.create!(
             recommend_type: 'card',

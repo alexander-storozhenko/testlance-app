@@ -4,14 +4,11 @@ require 'api/questions/root'
 require 'api/recommends/root'
 require 'api/search/root'
 require 'api/profile/root'
+require 'api/debug/root'
+require 'api/api_helper'
 module API
   class API < Grape::API
-
-    helpers do
-      def session
-        env['rack.session']
-      end
-    end
+    helpers ApiHelper
 
     namespace 'v1' do
       mount Users::Root
@@ -20,6 +17,7 @@ module API
       mount Recommends::Root
       mount Search::Root
       mount Profile::Root
+      mount Debug::Root
     end
   end
 end

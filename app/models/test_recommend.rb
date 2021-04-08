@@ -1,4 +1,4 @@
 class TestRecommend < ApplicationRecord
-  belongs_to :test_template
-  belongs_to :recommend
+  belongs_to :test_template, dependent: :destroy
+  belongs_to :recommend, dependent: :destroy
 end

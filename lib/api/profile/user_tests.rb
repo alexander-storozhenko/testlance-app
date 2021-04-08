@@ -19,7 +19,7 @@ module API
         #TODO debug user
         tests = TestTemplate.where(author: 1).offset(page * LIMIT + [(page - 1), 0].max).limit(LIMIT)
 
-        sleep 1
+        sleep 3
         present tests
       rescue => error
         error!(error, 400)
