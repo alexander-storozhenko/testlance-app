@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Rails.application.routes.url_helpers
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,
@@ -8,19 +9,21 @@ class User < ApplicationRecord
          :validatable
 
   before_save :ensure_authentication_token
+  after_create :set_default_avatar
 
+  has_many :test_templates
   has_one_attached :avatar
 
   enum role: [:guest, :sub_admin, :admin]
 
   def avatar_url
-    rails_blob_path(avatar , only_path: true)
+    rails_blob_path(avatar, only_path: true)
   end
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token
   end
-  # User.create! email: 'lol2aaaa1dd3@lol', password: 'kekkekeke', role: 'guest'
+
   private
 
   def generate_authentication_token
@@ -30,20 +33,11 @@ class User < ApplicationRecord
     end
   end
 
-  #include BCrypt
-  #has_secure_password
-
-  has_many :test_templates
-
-  def generate_token
-    update(oauth_token: SecureRandom.base64(64))
+  def set_default_avatar
+    unless avatar.attached?
+      avatar.attach(io: File.open(Rails.root.join("app", "assets", "images", "default_avatar.jpeg")),
+                    filename: 'default_avatar.jpeg',
+                    content_type: "image/jpg")
+    end
   end
-
-  #def authenticate!(password)
-  #  result = try(:authenticate, password)
-  #  raise 'Incorrect login or password' unless result
-  #
-  #  result
-  #end
-  #
 end

@@ -8,11 +8,11 @@ class Question < ApplicationRecord
   def result
     case template.question_type
     when 'one'
-      template.true_answers.first == user_answers.first
+      template.true_answers.first == user_answers.keys.first.to_i
     end
   end
 
   def set_answers(answers)
-    update(user_answers: answers)
+    update!(user_answers: answers)
   end
 end

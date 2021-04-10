@@ -8,7 +8,7 @@ module API
 
       get do
         #content_type 'image/png'
-        User.find(1).image_url
+        User.find(1).avatar_url
 
       end
     end

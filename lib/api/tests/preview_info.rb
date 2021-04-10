@@ -20,7 +20,7 @@ module API
         test = Test.new(user: @user, test_template: test_t)
 
         questions_t = QuestionTemplate.where(test_template: test_t)
-        questions = questions_t.map{|q| q.from_template(@user.id, test.id)}
+        questions = questions_t.each_with_index.map{|q, index| q.from_template(@user.id, test.id, index + 1)}
 
         test.questions = questions
         test.save!

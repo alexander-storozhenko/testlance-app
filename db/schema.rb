@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_194129) do
 
   create_table "question_templates", id: :serial, force: :cascade do |t|
     t.integer "question_type"
+    t.integer "number"
     t.string "text"
     t.json "answers"
     t.json "true_answers"
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_194129) do
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
+    t.integer "number"
     t.json "user_answers", default: {}
     t.integer "user_id"
     t.integer "test_id"
@@ -65,15 +67,6 @@ ActiveRecord::Schema.define(version: 2021_04_08_194129) do
     t.integer "test_id"
     t.json "data"
     t.index ["test_id"], name: "index_results_on_test_id"
-  end
-
-  create_table "sessions", id: :serial, force: :cascade do |t|
-    t.string "session_id", null: false
-    t.text "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["session_id"], name: "index_sessions_on_session_id"
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "test_recommends", id: :serial, force: :cascade do |t|

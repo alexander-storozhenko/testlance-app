@@ -16,8 +16,11 @@ module API
         time = DateTime.now.to_time
 
         test = Test.find(params[:test_id])
+        question_count = test.questions.count
 
         #diff = time - DateTime.parse(test.user_data['start_time']).to_time
+
+        test.questions.each{|q| p "q #{q.id}"}
 
         result = test.calc_result
 
@@ -25,6 +28,7 @@ module API
 
         data = {
             results: result,
+            question_count: question_count,
             #lasted_time: '%d:%02d:%02d' % [ diff / 3600, (diff / 60) % 60, diff % 60 ],
         }
 

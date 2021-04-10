@@ -1,10 +1,18 @@
 class TestTemplate < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   has_many :question_templates, dependent: :destroy
 
   belongs_to :user
   after_create :set_random_colors
 
   alias_attribute :author, :user
+
+  has_one_attached :image
+
+  def image_url
+    rails_blob_path(image, only_path: true) if image.attached?
+  end
 
   def generate_user_test!(user_id)
     user = User.find(user_id)

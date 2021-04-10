@@ -19,6 +19,7 @@ gem 'grape'
 gem 'kaminari-mongoid'
 gem 'bcrypt'
 gem 'devise'
+gem 'jwt'
 # gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

@@ -12,7 +12,7 @@ class QuestionTemplate < ApplicationRecord
     Question.create!(user_id: user_id, test_id: test_id)
   end
 
-  def from_template(user_id, test_id)
-    Question.create!(user_id: user_id, test_id: test_id, question_template_id: id)
+  def from_template(user_id, test_id, number)
+    Question.create!(user_id: user_id, test_id: test_id, number: number, question_template: self)
   end
 end

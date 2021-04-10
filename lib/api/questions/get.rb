@@ -14,13 +14,13 @@ module API
 
       get 'get' do
         test = Test.find(params[:test_id])
-        question = test.questions[params[:question_number]]
+        question = test.questions.find_by(number: params[:question_number])
 
         test.update!(user_data: {start_time: DateTime.now}) if params[:question_number].zero?
 
         question_t = QuestionTemplate.find(question.question_template_id)
 
-        p question,question_t
+
         present question: question, data: question_t
 
       end

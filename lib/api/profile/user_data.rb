@@ -23,6 +23,7 @@ module API
         result = {
             user_name: @user.name,
             account_type: 'free',
+            avatar_url: @user.avatar_url
             #**stats
         }
 
