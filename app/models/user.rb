@@ -24,6 +24,10 @@ class User < ApplicationRecord
     self.authentication_token ||= generate_authentication_token
   end
 
+  def authenticate!(password)
+    valid_password?(password)
+  end
+
   private
 
   def generate_authentication_token

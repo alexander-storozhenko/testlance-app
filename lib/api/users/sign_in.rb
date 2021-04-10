@@ -12,17 +12,17 @@ module API
       end
 
       put 'sign_in' do
-        user = User.find_by(name: params[:name])
+        user = User.where(name: params[:name]).or(User.where(email: params[:name])).first
 
-        raise 'Incorrect login or password' unless  user
+        raise 'Incorrect login or password' unless user
 
         user.authenticate!(params[:password])
 
         session[:current_user] = user
 
-        user.generate_token
+        user.ensure_authentication_token
 
-        present access_token: user.oauth_token
+        present access_token: user.authentication_token
 
        rescue StandardError => e
          error! e.message

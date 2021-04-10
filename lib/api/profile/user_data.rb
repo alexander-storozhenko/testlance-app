@@ -7,7 +7,7 @@ module API
 
       LIMIT = 20
 
-      # auth
+      authorize! role: :sub_admin
 
       get 'user_data' do
         @user = User.find(1)
