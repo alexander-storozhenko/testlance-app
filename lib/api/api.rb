@@ -5,6 +5,7 @@ require 'api/recommends/root'
 require 'api/search/root'
 require 'api/profile/root'
 require 'api/debug/root'
+require 'api/constructor/root'
 require 'api/api_helper'
 module API
   class API < Grape::API
@@ -18,6 +19,7 @@ module API
       mount Search::Root
       mount Profile::Root
       mount Debug::Root
+      mount Constructor::Root
     end
   end
 end
