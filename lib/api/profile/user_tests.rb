@@ -7,7 +7,7 @@ module API
 
       LIMIT = 20
 
-      # auth
+      authorize! send_error: true
 
       params do
         optional :page, type: Integer
@@ -17,7 +17,7 @@ module API
         page = !params[:page] ? 0 : params[:page]
 
         #TODO debug user
-        tests = TestTemplate.where(author: 1).offset(page * LIMIT + [(page - 1), 0].max).limit(LIMIT)
+        tests = TestTemplate.where(author: @user).offset(page * LIMIT + [(page - 1), 0].max).limit(LIMIT)
 
         sleep 3
         present tests

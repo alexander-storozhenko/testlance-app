@@ -9,7 +9,7 @@ module API
 
       RECOMMENDS_COUNT = 10
 
-      # auth
+      authorize! role: :admin
 
       params do
         optional :page, type: Integer

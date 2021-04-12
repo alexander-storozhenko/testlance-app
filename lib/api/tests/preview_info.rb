@@ -6,14 +6,13 @@ module API
 
       format :json
 
-      # auth
+      authorize!
 
       params do
         requires :test_t_id, type: Integer
       end
 
       get 'preview_info' do
-        @user = User.find(1)
         Test.where(user_id: @user.id).each{|t| t.destroy}
 
         test_t = TestTemplate.find(params[:test_t_id])

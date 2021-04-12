@@ -5,13 +5,9 @@ module API
       include Defaults
       format :json
 
-      LIMIT = 20
-
-      authorize! role: :sub_admin
+      authorize! send_error: true
 
       get 'user_data' do
-        @user = User.find(1)
-
         stats = @user.test_templates.each_with_object({plays: 0, likes: 0, likes_count: 0}) do |test, hsh|
           hsh[:plays] += test.plays
           hsh[:likes] += test.likes
