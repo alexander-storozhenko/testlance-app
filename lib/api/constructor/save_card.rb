@@ -1,33 +1,48 @@
 require 'api/defaults'
 module API
   module Constructor
-    class SaveCard< Grape::API
+    class SaveCard < Grape::API
       include Defaults
-
+      format :json
       authorize! send_error: true
 
       params do
-        requires :image, type: File
-        requires :colors, type: String
+        requires :title, type: String
+        requires :sub_title, type: String
+        requires :colors, type: String, regexp: /\#((\S){6}),\#((\S){6})/
+        optional :image, type: File
       end
 
       post 'save_card' do
         content_type 'multipart/form-data'
         image = params[:image]
+        colors = params[:colors].split(',')
 
-        attachment = {
-            filename: image[:filename],
-            type: image[:type],
-            headers: image[:head],
-            tempfile: image[:tempfile]
-        }
+        TestTemplate.where(author: @user, status: :constructing).destroy_all
 
-        test_t = TestTemplate.create(author: @user)
+        test_t = TestTemplate.create(
+            author: @user,
+            status: :constructing,
+            title: params[:title],
+            sub_title: params[:sub_title],
+            colors: colors
+        )
 
-        test_t.image = ActionDispatch::Http::UploadedFile.new(attachment)
+        if image
+          attachment = {
+              filename: image[:filename],
+              type: image[:type],
+              headers: image[:head],
+              tempfile: image[:tempfile]
+          }
+
+          test_t.image = ActionDispatch::Http::UploadedFile.new(attachment)
+        end
+
 
         test_t.save!
 
+        sleep 4
         present image_url: test_t.image_url
       end
     end

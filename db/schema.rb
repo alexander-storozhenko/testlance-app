@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_194129) do
   create_table "test_templates", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "sub_title"
+    t.integer "status", default: 0
     t.integer "likes", default: 0
     t.integer "plays", default: 0
     t.json "options"

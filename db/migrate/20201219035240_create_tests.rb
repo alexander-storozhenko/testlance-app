@@ -3,6 +3,7 @@ class CreateTests < ActiveRecord::Migration[5.0]
     create_table :test_templates do |t|
       t.string :title
       t.string :sub_title
+      t.integer :status, default: 0
 
       t.integer :likes, default: 0
       t.integer :plays, default: 0
