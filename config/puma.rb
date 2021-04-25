@@ -22,7 +22,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-bind 'tcp://192.168.0.12:3000'
+bind 'tcp://192.168.0.10:3000'
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write

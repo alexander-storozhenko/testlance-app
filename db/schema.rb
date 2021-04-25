@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_194129) do
     t.string "text"
     t.json "answers"
     t.json "true_answers"
+    t.json "params"
     t.integer "test_template_id"
     t.index ["test_template_id"], name: "index_question_templates_on_test_template_id"
   end

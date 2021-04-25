@@ -1,7 +1,7 @@
 class QuestionTemplate < ApplicationRecord
   belongs_to :test_template
 
-  enum question_type: %i[one]
+  enum question_type: {one: 0}
 
   def generate_user_question!(user_id:, test_id:)
     user = User.find(user_id)
