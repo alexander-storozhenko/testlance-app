@@ -13,14 +13,16 @@ module API
       end
 
       get 'results' do
+
         time = DateTime.now.to_time
 
         test = Test.find(params[:test_id])
+        test_t = Test.template
         question_count = test.questions.count
 
-        #diff = time - DateTime.parse(test.user_data['start_time']).to_time
+        Statistic::UserTestStatistic.increment_test_t_plays(test_t.id)
 
-        test.questions.each{|q| p "q #{q.id}"}
+        #diff = time - DateTime.parse(test.user_data['start_time']).to_time
 
         result = test.calc_result
 
@@ -39,5 +41,3 @@ module API
     end
   end
 end
-
-

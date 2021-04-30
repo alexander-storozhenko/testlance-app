@@ -7,8 +7,7 @@ module API
       authorize! role: :admin
 
       get 'debug' do
-
-        'ok'
+        $redis.get("mykey")
       end
     end
   end
