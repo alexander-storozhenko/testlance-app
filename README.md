@@ -10,5 +10,5 @@
 ## Start
 - `brew services start mongodb/brew/mongodb-community` (_macos_)
 - `rails s`
-- `redis-server'
+- `redis-server`
 - `sidekiq`
