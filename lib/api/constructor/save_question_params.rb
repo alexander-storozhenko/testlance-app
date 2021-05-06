@@ -13,10 +13,10 @@ module API
 
       post 'save_question_params' do
         test_t = TestTemplate.find_by!(user: @user, status: :constructing)
-        QuestionTemplate.create!(test_template: test_t, question_type: params[:question_type])
+        question_t = QuestionTemplate.create!(test_template: test_t, question_type: params[:question_type])
 
         sleep 3
-        {}
+        {question_id: question_t.id}
       rescue => error
         error!(error, 400)
       end
