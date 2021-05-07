@@ -11,7 +11,9 @@ class User < ApplicationRecord
   before_save :ensure_authentication_token
   after_create :set_default_avatar
 
-  has_many :test_templates
+  has_many :test_templates, dependent: :destroy
+  has_many :mobile_devices, dependent: :destroy
+
   has_one_attached :avatar
 
   enum role: [:guest, :sub_admin, :admin]
@@ -26,6 +28,12 @@ class User < ApplicationRecord
 
   def authenticate!(password)
     valid_password?(password)
+  end
+
+  def broadcast_push_notifications(data, one_for_all = true)
+    return mobile_devices.each { |mobile| mobile.send_notification(data) } if one_for_all
+
+    data.each_with_index { |notification, i| mobile_devices[i].send_notification(notification) }
   end
 
   private
