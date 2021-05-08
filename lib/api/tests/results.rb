@@ -17,7 +17,7 @@ module API
         time = DateTime.now.to_time
 
         test = Test.find(params[:test_id])
-        test_t = Test.template
+        test_t = test.template
         question_count = test.questions.count
 
         Statistic::UserTestStatistic.increment_test_t_plays(test_t.id)

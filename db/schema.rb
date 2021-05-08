@@ -48,7 +48,8 @@ ActiveRecord::Schema.define(version: 2021_05_07_162814) do
   create_table "question_templates", id: :serial, force: :cascade do |t|
     t.integer "question_type"
     t.integer "number"
-    t.string "text"
+    t.string "title"
+    t.string "subtitle"
     t.json "answers"
     t.json "true_answers"
     t.json "data"

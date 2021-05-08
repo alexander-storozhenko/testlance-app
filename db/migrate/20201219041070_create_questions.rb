@@ -4,7 +4,8 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       t.integer :question_type
       t.integer :number
 
-      t.string :text
+      t.string :title
+      t.string :subtitle
 
       t.json :answers
       t.json :true_answers

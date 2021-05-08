@@ -31,7 +31,7 @@ module API
         5.times do |q|
           QuestionTemplate.create!(
               question_type: 'one',
-              text: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
+              title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
               answers: ['answer 1', 'answer 2', 'true answer'],
               true_answers: [2],
               test_template: test_t
