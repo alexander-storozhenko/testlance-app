@@ -12,3 +12,5 @@
 - `rails s`
 - `redis-server`
 - `sidekiq`
+
+(or `bin/serv s`)
