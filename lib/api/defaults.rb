@@ -1,3 +1,5 @@
+require_relative 'entities'
+
 module API
   module Defaults
     extend ActiveSupport::Concern

@@ -10,6 +10,7 @@ module API
 
     def authenticated
       return true if warden.authenticated?
+
       headers['Access-Token'] && (@user = User.find_by_authentication_token(headers['Access-Token']))
     end
 
