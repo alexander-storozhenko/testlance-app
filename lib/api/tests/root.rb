@@ -1,5 +1,6 @@
 require_relative 'preview_info'
 require_relative 'results'
+require_relative 'delete'
 
 module API
 module Tests
@@ -7,6 +8,7 @@ module Tests
     namespace 'tests' do
         mount PreviewInfo
         mount Results
+        mount Delete
       end
     end
   end

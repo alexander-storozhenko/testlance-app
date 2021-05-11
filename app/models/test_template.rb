@@ -1,10 +1,10 @@
 class TestTemplate < ApplicationRecord
   include Rails.application.routes.url_helpers
-
   has_many :question_templates, dependent: :destroy
 
   belongs_to :user
   after_create :set_random_colors
+  after_destroy :destroy_relations
 
   alias_attribute :author, :user
 
@@ -34,6 +34,10 @@ class TestTemplate < ApplicationRecord
         **args
     }
     save!
+  end
+
+  def destroy_relations
+    TestRecommend.where(test_template: self).destroy_all
   end
 
   private

@@ -39,7 +39,6 @@ module API
           test_t.image = ActionDispatch::Http::UploadedFile.new(attachment)
         end
 
-
         test_t.save!
 
         sleep 4

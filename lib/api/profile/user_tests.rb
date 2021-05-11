@@ -18,7 +18,7 @@ module API
 
         tests = TestTemplate.where(author: @user).offset(page * LIMIT + [(page - 1), 0].max).limit(LIMIT)
 
-        sleep 3
+        sleep 1
         present tests
       rescue => error
         error!(error, 400)

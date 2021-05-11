@@ -1,6 +1,6 @@
 class Recommend < ApplicationRecord
   has_many :test_recommends
-  has_many :test_templates, through: :test_recommends
+  has_many :test_templates, through: :test_recommends, dependent: :destroy
 
   def from_template
     case recommend_type
