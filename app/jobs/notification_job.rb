@@ -5,7 +5,7 @@ class NotificationJob < ApplicationJob
     messages = [
         {
             to: "ExponentPushToken[#{data[:token]}]",
-            sound: data[:sound],
+            title: data[:title],
             body: data[:body]
         }
     ]
@@ -15,3 +15,5 @@ class NotificationJob < ApplicationJob
     client.verify_deliveries(handler.receipt_ids)
   end
 end
+
+# NotificationJob.perform_later(token: 'NBSxpAIRpkRRf4cwyMDKyT', body: 'KEK')
