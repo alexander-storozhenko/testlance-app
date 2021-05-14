@@ -1,15 +1,15 @@
 class TestChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "test"
-    p 'subscribed'
+    return if params['id'].blank?
+
+    stream_from "test:#{params['id']}"
   end
 
-  def unsubscribed
-    p 'unsubscribed'
-    # Any cleanup needed when channel is unsubscribed
-  end
+  def unsubscribed; end
 
-  def test
-    p 'asd'
+  def self.send(msg)
+    TestChannel.broadcast_to("test:#{params['id']}", "test")
   end
 end
+
+# TestChannel.broadcast_to 1, 'lol'

@@ -7,7 +7,7 @@ module API
       authorize! role: :admin
 
       get 'debug' do
-        $redis.get("mykey")
+        NotificationJob.perform_later('TESTS')
       end
     end
   end

@@ -9,6 +9,8 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  config.action_cable.disable_request_forgery_protection = true
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -47,7 +49,10 @@ Rails.application.configure do
   config.active_storage.service = :local
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
+  config.action_cable.allowed_request_origins = [
+      # Local address we use for our standalone client
+      'file://',
+  ]
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
