@@ -1,5 +1,9 @@
+require 'auth'
+
 module API
   module ApiHelper
+    include Auth
+
     def warden
       env['warden']
     end
@@ -10,8 +14,12 @@ module API
 
     def authenticated
       return true if warden.authenticated?
+      return if headers['Access-Token'].blank?
 
-      headers['Access-Token'] && (@user = User.find_by_authentication_token(headers['Access-Token']))
+      payload = decode_jwt(headers['Access-Token'])&.first
+      return unless payload
+
+      payload && (@user = User.find(payload['id'])) && (@user.sub_admin? || @user.admin?)
     end
 
     def authenticated_admin
