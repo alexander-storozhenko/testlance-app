@@ -1,13 +1,13 @@
 class RecommendsChannel < ApplicationCable::Channel
   def subscribed
-    return if params['id'].blank?
+    return if params['token'].blank?
 
-    stream_from "recommends:#{params['id']}"
+    stream_from "recommends:#{params['token']}"
   end
 
   def unsubscribed; end
 
-  def self.send(id, msg)
-    RecommendsChannel.broadcast_to(id, msg)
+  def self.send(token, msg)
+    RecommendsChannel.broadcast_to(token, msg)
   end
 end

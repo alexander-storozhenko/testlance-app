@@ -1,5 +1,8 @@
+require 'auth'
+
 class User < ApplicationRecord
   include Rails.application.routes.url_helpers
+  include Auth
 
   devise :database_authenticatable,
          :registerable,
@@ -8,7 +11,6 @@ class User < ApplicationRecord
          :trackable,
          :validatable
 
-  before_save :ensure_authentication_token
   after_create :set_default_avatar
 
   has_many :test_templates, dependent: :destroy
@@ -22,8 +24,8 @@ class User < ApplicationRecord
     rails_blob_path(avatar, only_path: true)
   end
 
-  def ensure_authentication_token
-    self.authentication_token ||= generate_authentication_token
+  def jwt
+    encode_jwt({id: id})
   end
 
   def authenticate!(password)
@@ -37,13 +39,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def generate_authentication_token
-    loop do
-      token = Devise.friendly_token
-      break token unless User.where(authentication_token: token).first
-    end
-  end
 
   def set_default_avatar
     unless avatar.attached?

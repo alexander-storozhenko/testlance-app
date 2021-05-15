@@ -50,7 +50,6 @@ gem "sidekiq-cron"
 # gem 'capistrano-rails', group: :development
 gem 'exponent-server-sdk'
 gem 'figaro'
-
 gem 'grape-entity'
 
 group :development, :test do

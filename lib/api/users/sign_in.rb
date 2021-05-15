@@ -17,13 +17,9 @@ module API
         raise 'Incorrect login or password' unless user
 
         user.authenticate!(params[:password])
-
         session[:current_user] = user
 
-        user.ensure_authentication_token
-
-        present access_token: user.authentication_token
-
+        present access_token: user.jwt
        rescue StandardError => e
          error! e.message
       end

@@ -4,10 +4,10 @@ module API
     class Debug < Grape::API
       include Defaults
       format :json
-      authorize! role: :admin
+      authorize! role: :admin, send_error: true
 
       get 'debug' do
-        NotificationJob.perform_later('TESTS')
+        @user.email
       end
     end
   end
