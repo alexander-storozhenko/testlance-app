@@ -9,6 +9,9 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.0]
       t.string :encrypted_password, null: false, default: ""
       #t.attachment :avatar
       t.integer :role, null: false, default: 0
+      t.integer :login_type, default: 0
+      t.string :image_url, default: ""
+      t.string :google_access_token, default: ""
 
       ## Recoverable
       t.string   :reset_password_token

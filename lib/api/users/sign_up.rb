@@ -11,13 +11,11 @@ module API
       end
 
       post 'sign_up' do
-        user = User.find_by(name: params[:name])
+        raise 'User exists' if User.exists?(name: params[:name])
 
-        raise 'User exists' if user
+        user = User.create!(name: params[:name], password: params[:password])
 
-        User.create!(name: params[:name], password: params[:password])
-
-        present user
+        present access_token: user.jwt
        rescue StandardError => e
          error! e.message
       end

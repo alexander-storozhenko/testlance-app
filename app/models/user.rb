@@ -11,14 +11,13 @@ class User < ApplicationRecord
          :trackable,
          :validatable
 
-  after_create :set_default_avatar
-
   has_many :test_templates, dependent: :destroy
   has_many :mobile_devices, dependent: :destroy
 
   has_one_attached :avatar
 
   enum role: [:guest, :sub_admin, :admin]
+  enum login_type: [:local, :google, :vk]
 
   def avatar_url
     rails_blob_path(avatar, only_path: true)
@@ -36,15 +35,5 @@ class User < ApplicationRecord
     return mobile_devices.each { |mobile| mobile.send_notification(data) } if one_for_all
 
     data.each_with_index { |notification, i| mobile_devices[i].send_notification(notification) }
-  end
-
-  private
-
-  def set_default_avatar
-    unless avatar.attached?
-      avatar.attach(io: File.open(Rails.root.join("app", "assets", "images", "default_avatar.jpeg")),
-                    filename: 'default_avatar.jpeg',
-                    content_type: "image/jpg")
-    end
   end
 end

@@ -118,6 +118,9 @@ ActiveRecord::Schema.define(version: 2021_05_07_162814) do
     t.string "name", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.integer "role", default: 0, null: false
+    t.integer "login_type", default: 0
+    t.string "image_url", default: ""
+    t.string "google_access_token", default: ""
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
