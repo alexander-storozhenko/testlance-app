@@ -9,7 +9,7 @@ module Auth
   end
 
   def decode_jwt(token)
-    JWT.decode token, HMAC_SECRET, true, ALG
+    JWT.decode token, HMAC_SECRET, false, { algorithm: ALG }
   rescue
     nil
   end
