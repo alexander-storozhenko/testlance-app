@@ -10,7 +10,7 @@ class TestTemplate < ApplicationRecord
 
   has_one_attached :image
 
-  enum status: [:created, :constructing]
+  enum status: [:created, :constructing, :editing]
 
   def image_url
     rails_blob_path(image, only_path: true) if image.attached?

@@ -8,7 +8,7 @@ class QuestionTemplate < ApplicationRecord
   has_many_attached :answers_images
   has_one_attached :title_image
 
-  enum question_type: {one: 0}
+  enum question_type: [:one, :some]
 
   scope :author, -> {test_template.author}
 

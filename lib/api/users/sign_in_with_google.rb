@@ -17,10 +17,8 @@ module API
       end
 
       patch 'sign_in_with_google' do
-        user = User.find_by(google_access_token: params[:google_access_token])
+        user = User.find_by(email: params[:email])
 
-        p 1
-        p params
         if user
           user.update!(
               name: params[:name],
@@ -29,7 +27,6 @@ module API
               google_access_token: params[:google_access_token]
           )
         else
-          p 2
           user = User.create!(
               login_type: :google,
               role: :sub_admin,
@@ -40,8 +37,6 @@ module API
               google_access_token: params[:google_access_token]
           )
         end
-        p 3
-        p 4
 
         present access_token: user.jwt
       rescue => e

@@ -3,11 +3,19 @@ module API
   module Debug
     class Debug < Grape::API
       include Defaults
+      include ActionController::Live
+
       format :json
-      authorize! role: :admin, send_error: true
 
       get 'debug' do
-        @user.email
+        p stream
+
+        sse = ActionController::Live::SSE.new(stream, retry: 300, event: "taskProgress")
+        headers["Content-Type"] = "text/event-stream"
+
+        sse.write(progress: 1)
+
+        sleep 1
       end
     end
   end

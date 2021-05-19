@@ -19,7 +19,7 @@ module API
         result = {
             name: @user.name,
             account_type: 'free',
-            avatar_url: @user.avatar_url
+            avatar_url: @user.google? ? @user.image_url :  @user.avatar_url
             #**stats
         }
 
