@@ -19,8 +19,6 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.0]
 
       ## Rememberable
       t.datetime :remember_created_at
-
-      t.timestamps null: false
     end
 
     add_index :users, :email,                unique: true
