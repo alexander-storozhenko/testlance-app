@@ -8,14 +8,7 @@ module API
       format :json
 
       get 'debug' do
-        p stream
-
-        sse = ActionController::Live::SSE.new(stream, retry: 300, event: "taskProgress")
-        headers["Content-Type"] = "text/event-stream"
-
-        sse.write(progress: 1)
-
-        sleep 1
+        'ok'
       end
     end
   end
