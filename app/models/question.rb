@@ -9,6 +9,13 @@ class Question < ApplicationRecord
     case template.question_type
     when 'one'
       template.true_answers.first == user_answers.keys.first.to_i
+    when 'some'
+      answers = template.true_answers.map { |k, v| k if v }.reject { |e| e.blank? }
+      real_answers = user_answers.map { |k, v| k if v }.reject { |e| e.blank? }
+
+      #TODO mb use other system of calculating points
+      # now using: all test failing if one error
+      (real_answers & answers).count == answers.count
     end
   end
 

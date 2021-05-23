@@ -11,18 +11,18 @@ gem 'rails', '~> 5.2'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.3.7'
 gem 'pg'
-#gem 'mongoid'
-# gem 'mongoid-enum', git: 'git@github.com:boie0025/mongoid-enum', branch: 'nb/mongoid-6'
+
 gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
 gem 'grape'
 
-gem 'kaminari-mongoid'
+#gem 'kaminari-mongoid'
 gem 'bcrypt'
 gem 'devise'
 gem 'jwt'
 # gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+gem 'thin'
 gem 'redis'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

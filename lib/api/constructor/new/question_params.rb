@@ -7,10 +7,10 @@ module API
         include Defaults
         format :json
 
-        #authorize! send_error: true
+        authorize! send_error: true
 
         params do
-          requires :question_type, type: String, values: %w[one, some]
+          requires :question_type, type: String, values: %w[one some]
           optional :question_time, type: String
         end
 

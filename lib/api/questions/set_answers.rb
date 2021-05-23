@@ -10,6 +10,7 @@ module API
 
       params do
         requires :question_number, type: Integer
+        requires :question_type, type: String, values: %w[one some]
         requires :answers, type: String
         requires :test_id, type: String
       end

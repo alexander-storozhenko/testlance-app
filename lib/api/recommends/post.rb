@@ -9,7 +9,6 @@ module API
 
       RECOMMENDS_COUNT = 10
 
-      authorize! role: :admin
 
       params do
         optional :page, type: Integer
@@ -28,13 +27,35 @@ module API
             user: user
         )
 
-        5.times do |q|
+        2.times do |q|
           QuestionTemplate.create!(
               question_type: 'one',
               title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
               answers: ['answer 1', 'answer 2', 'true answer'],
               true_answers: [2],
-              test_template: test_t
+              test_template: test_t,
+              data:
+                  {
+                      title_type: "text",
+                      answers_type: "one,text"
+                  }
+
+          )
+        end
+
+        3.times do |q|
+          QuestionTemplate.create!(
+              question_type: 'some',
+              title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
+              answers: ['answer 1', 'answer 2', 'true answer'],
+              true_answers: JSON.parse("{\"1\":\"true\", \"2\":\"true\"}"),
+              test_template: test_t,
+              data:
+                  {
+                      title_type: "text",
+                      answers_type: "some,text"
+                  }
+
           )
         end
 

@@ -7,7 +7,7 @@ module API
         include Defaults
         format :json
 
-        authorize! send_error: true
+        #authorize! send_error: true
 
         params do
           requires :question_id, type: String
@@ -28,7 +28,7 @@ module API
           raise 'Question not exists!' unless question_t
 
           answers = JSON.parse(params[:answers]).values
-          true_answers = Array(params[:true_answers].to_i)
+          true_answers = JSON.parse(params[:true_answers])
 
           question_t.update!(
               title: params[:title],
