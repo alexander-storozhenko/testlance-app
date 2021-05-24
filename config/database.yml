@@ -11,4 +11,4 @@ default: &default
   port: <%= ENV['DATABASE_PORT'] || '5432' %>
 development:
   <<: *default
-  database: tests_app_development
+  database: great_test_development
