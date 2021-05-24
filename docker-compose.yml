@@ -7,7 +7,7 @@ volumes:
   gem_cache:
   shared_data:
 services:
-  restarone_redis:
+  redis:
     image: redis:4.0-alpine
     command: redis-server
     networks:
@@ -19,7 +19,7 @@ services:
     image: postgres:12.5-alpine
     container_name: db
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - ./tmp/db_data:/var/lib/postgresql/data
       - shared_data:/var/shared
     networks:
       - development
