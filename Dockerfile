@@ -33,9 +33,9 @@ less \
 RUN gem install bundler --version "$BUNDLE_VERSION" \
 && rm -rf $GEM_HOME/cache/*
 
-COPY package.json yarn.lock ./
+#COPY package.json yarn.lock ./
 
-RUN yarn install --check-files
+#RUN yarn install --check-files
 
 # navigate to app directory
 
