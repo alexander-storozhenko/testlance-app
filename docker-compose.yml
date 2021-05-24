@@ -16,7 +16,7 @@ services:
     volumes:
       - shared_data:/var/shared/redis
   db:
-    image: postgres:10.3-alpine
+    image: postgres:12.5-alpine
     container_name: db
     volumes:
       - db_data:/var/lib/postgresql/data
