@@ -36,9 +36,7 @@ COPY Gemfile Gemfile.lock ./
 
 RUN bundle config build.nokogiri --use-system-libraries
 
-RUN bundle check || bundle install
-
-RUN yarn install --check-files
+RUN bundle install
 
 COPY . ./
 
