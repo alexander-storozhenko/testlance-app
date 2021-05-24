@@ -9,8 +9,9 @@ ENV RAILS_PORT 3000
 
 # copy entrypoint scripts and grant execution permissions
 COPY ./dev-entrypoint.sh /usr/local/bin/dev-entrypoint.sh
-COPY ./test-entrypoint.sh /usr/local/bin/test-entrypoint.sh
-RUN chmod +x /usr/local/bin/dev-entrypoint.sh && chmod +x /usr/local/bin/test-entrypoint.sh
+#COPY ./test-entrypoint.sh /usr/local/bin/test-entrypoint.sh
+RUN chmod +x /usr/local/bin/dev-entrypoint.sh
+#&& chmod +x /usr/local/bin/test-entrypoint.sh
 
 # install dependencies for application
 RUN apk -U add --no-cache \
