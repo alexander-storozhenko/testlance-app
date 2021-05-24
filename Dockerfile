@@ -42,5 +42,6 @@ RUN yarn install --check-files
 WORKDIR $APP_PATH
 
 EXPOSE $RAILS_PORT
+EXPOSE 5432
 
 ENTRYPOINT [ "bundle", "exec" ]
