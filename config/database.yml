@@ -9,6 +9,7 @@ default: &default
   encoding: unicode
   pool: 5
   port: 5432
+  host: postgres
 development:
   <<: *default
   database: great_test_development
