@@ -29,9 +29,6 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - 5432
-    healthcheck:
-      test: pg_isready -U postgres -h 127.0.0.1
-      interval: 5s
   app:
     build:
       context: .
@@ -44,12 +41,12 @@ services:
     networks:
       - development
     ports:
-      - 3000:3000
+      - 3000
     stdin_open: true
     tty: true
     env_file: .env
     entrypoint: dev-entrypoint.sh
-    command: ['rails', 'server', '-p', '3000', '-b', '127.0.0.1']
+    command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
     environment:
       RAILS_ENV: development
     depends_on:
