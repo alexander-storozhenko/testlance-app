@@ -21,6 +21,7 @@ services:
     image: postgres:12
     volumes:
       - db_data:/var/lib/postgresql/data
+      - shared_data:/var/shared
     ports:
       - 5432:5432
   redis:
