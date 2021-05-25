@@ -16,3 +16,7 @@
 - `sidekiq`
 
 (or `bin/serv s`)
+
+## Docker fast start (only linux)
+- `docker-compose build && docker-compose up`
+- `docker-compose run app rails db:create db:migrate`
