@@ -24,9 +24,6 @@ services:
     networks:
       - development
 #      - test
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
   app:
