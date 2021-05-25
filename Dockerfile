@@ -1,47 +1,47 @@
 FROM ruby:2.6.5-alpine
 
-ENV BUNDLER_VERSION=2.2.15
+ENV APP_PATH /var/app
+ENV BUNDLE_VERSION 2.2.15
+ENV BUNDLE_PATH /usr/local/bundle/gems
+ENV TMP_PATH /tmp/
+ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_PORT 3000
 
-RUN apk add --update --no-cache \
-      binutils-gold \
-      build-base \
-      curl \
-      file \
-      g++ \
-      gcc \
-      git \
-      less \
-      libstdc++ \
-      libffi-dev \
-      libc-dev \
-      linux-headers \
-      libxml2-dev \
-      libxslt-dev \
-      libgcrypt-dev \
-      make \
-      netcat-openbsd \
-      nodejs \
-      openssl \
-      pkgconfig \
-      postgresql-dev \
-      python \
-      tzdata \
-      yarn
+# copy entrypoint scripts and grant execution permissions
+COPY ./dev-entrypoint.sh /usr/local/bin/dev-entrypoint.sh
+#COPY ./test-entrypoint.sh /usr/local/bin/test-entrypoint.sh
+RUN chmod +x /usr/local/bin/dev-entrypoint.sh
+#&& chmod +x /usr/local/bin/test-entrypoint.sh
 
-RUN gem install bundler -v 2.2.15
+# install dependencies for application
+RUN apk -U add --no-cache \
+build-base \
+git \
+postgresql-dev \
+postgresql-client \
+libxml2-dev \
+libxslt-dev \
+nodejs \
+yarn \
+imagemagick \
+tzdata \
+less \
+&& rm -rf /var/cache/apk/* \
+&& mkdir -p $APP_PATH
 
-WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+RUN gem install bundler --version "$BUNDLE_VERSION" \
+&& rm -rf $GEM_HOME/cache/*
 
-RUN bundle config build.nokogiri --use-system-libraries
+#COPY package.json yarn.lock ./
 
-RUN bundle check || bundle install
+#RUN yarn install --check-files
 
-RUN yarn install --check-files
+# navigate to app directory
 
-COPY . ./
+WORKDIR $APP_PATH
 
-EXPOSE 3000
+EXPOSE $RAILS_PORT
+EXPOSE 5432
 
-ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
+ENTRYPOINT [ "bundle", "exec" ]

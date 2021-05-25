@@ -1,47 +1,70 @@
-version: '3.4'
-
+version: '3'
+networks:
+  development:
+  test:
+volumes:
+  db_data:
+  gem_cache:
+  shared_data:
 services:
+  redis:
+    image: redis:4.0-alpine
+    command: redis-server
+    networks:
+      - development
+#      - test
+    volumes:
+      - shared_data:/var/shared/redis
+  db:
+    image: postgres:12.5-alpine
+    container_name: db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - shared_data:/var/shared
+    networks:
+      - development
+#      - test
+    ports:
+      - 5432:5432
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - database
-      - redis
+    container_name: app
+    volumes:
+      - .:/var/app
+      - shared_data:/var/shared
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      - development
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - gem_cache:/usr/local/bundle/gems
-      - node_modules:/app/node_modules
+      - 3000:3000
+    stdin_open: true
+    tty: true
+    env_file: .env
+    entrypoint: dev-entrypoint.sh
+    command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
     environment:
       RAILS_ENV: development
-
-  database:
-    image: postgres:12
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:5.0.7
-
-  sidekiq:
-    build:
-      context: .
-      dockerfile: Dockerfile
     depends_on:
-      - app
-      - database
-      - redis
-    volumes:
-      - .:/app
-      - gem_cache:/usr/local/bundle/gems
-      - node_modules:/app/node_modules
-    environment:
-      RAILS_ENV: development
-#    entrypoint: ./entrypoints/sidekiq-entrypoint.sh
-
-volumes:
-  gem_cache:
-  db_data:
-  node_modules:
+      - db
+#  test:
+#    image: restarone_restarone_app
+#    container_name: restarone_test
+#    volumes:
+#      - .:/var/app
+#      - shared_data:/var/shared
+#      - gem_cache:/usr/local/bundle/gems
+#    networks:
+#      - test
+#    ports:
+#      - 3001:3000
+#    stdin_open: true
+#    tty: true
+#    env_file: .env.test
+#    entrypoint: test-entrypoint.sh
+#    command: ["rails", "-v"]
+#    environment:
+#      RAILS_ENV: test
+#    depends_on:
+#      - restarone_db
