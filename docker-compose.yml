@@ -19,6 +19,8 @@ services:
   redis:
     image: redis:4.0-alpine
     command: redis-server
+    ports:
+      - 6379:6379
     networks:
       - development
     #      - test
