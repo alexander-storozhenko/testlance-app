@@ -11,9 +11,9 @@ services:
     depends_on:
       - db
       - redis
-      build: .
-      command: bundle exec sidekiq
-      volumes:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
         - '.:/project'
         - '/project/tmp' # don't mount tmp directory
   redis:
