@@ -41,14 +41,14 @@ RUN gem install bundler --version "$BUNDLE_VERSION" \
 
 CMD apt-get install nginx
 
-ADD Gemfile $ROOT_PATH/Gemfile
-ADD Gemfile.lock $ROOT_PATH/Gemfile.lock
-RUN bundle install
+
 WORKDIR $APP_PATH
 
 
 
-
+ADD Gemfile $APP_PATH/Gemfile
+ADD Gemfile.lock $APP_PATH/Gemfile.lock
+RUN bundle install
 
 
 EXPOSE $RAILS_PORT

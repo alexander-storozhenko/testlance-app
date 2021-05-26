@@ -13,8 +13,10 @@ services:
       - redis
     build: .
     command: bundle exec sidekiq
+    working_dir: /great-test-app
+
     volumes:
-        - .:/var/great-test-app-api
+        - .:/var/great-test-app
   redis:
     image: redis:4.0-alpine
     command: redis-server
