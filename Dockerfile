@@ -37,7 +37,7 @@ RUN gem install bundler --version "$BUNDLE_VERSION" \
 
 #RUN yarn install --check-files
 
-RUN apt-get install nginx
+CMD apt-get install nginx
 
 WORKDIR $APP_PATH
 
