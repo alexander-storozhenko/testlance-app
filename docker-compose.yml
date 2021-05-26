@@ -15,7 +15,6 @@ services:
     command: bundle exec sidekiq
     volumes:
         - '.:/great-test-app-api'
-        - '/great-test-app-api/tmp'
   redis:
     image: redis:4.0-alpine
     command: redis-server
