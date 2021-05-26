@@ -13,8 +13,7 @@ services:
       - redis
     build: .
     command: bundle exec sidekiq
-    working_dir: /app
-
+    working_dir: /var/app
     volumes:
         - .:/var/app
   redis:
