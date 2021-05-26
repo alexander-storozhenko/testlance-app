@@ -1,7 +1,6 @@
 RailsAdmin.config do |config|
-
   ### Popular gems integration
-
+  #config.parent_controller = 'ApplicationController'
   ## == Devise ==
   # config.authenticate_with do
   #   warden.authenticate! scope: :user
@@ -9,8 +8,10 @@ RailsAdmin.config do |config|
   # config.current_user_method(&:current_user)
 
   ## == CancanCan ==
-  # config.authorize_with :cancancan
-
+  config.authenticate_with do
+    warden.authenticate! scope: :admin_panel_user
+  end
+  config.current_user_method(&:current_admin_panel_user)
   ## == Pundit ==
   # config.authorize_with :pundit
 
@@ -24,8 +25,8 @@ RailsAdmin.config do |config|
   # config.show_gravatar = true
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard # mandatory
+    index # mandatory
     new
     export
     bulk_delete
