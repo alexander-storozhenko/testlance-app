@@ -30,10 +30,10 @@ less \
 && mkdir -p $APP_PATH
 
 
+
 RUN gem install bundler --version "$BUNDLE_VERSION" \
 && rm -rf $GEM_HOME/cache/*
 
-RUN bundle i
 #COPY package.json yarn.lock ./
 
 #RUN yarn install --check-files
@@ -41,6 +41,9 @@ RUN bundle i
 CMD apt-get install nginx
 
 WORKDIR $APP_PATH
+ADD Gemfile /bundle/
+ADD Gemfile.lock /bundle/
+RUN bundle install
 
 EXPOSE $RAILS_PORT
 EXPOSE 5432
