@@ -14,8 +14,8 @@ services:
     build: .
     command: bundle exec sidekiq
     volumes:
-        - '.:/project'
-        - '/project/tmp' # don't mount tmp directory
+        - '.:/great-test-app-api'
+        - '/great-test-app-api/tmp'
   redis:
     image: redis:4.0-alpine
     command: redis-server
