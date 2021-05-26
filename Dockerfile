@@ -40,11 +40,9 @@ RUN gem install bundler --version "$BUNDLE_VERSION" \
 #RUN yarn install --check-files
 
 CMD apt-get install nginx
-
+CMD apt install redis-server
 
 WORKDIR $APP_PATH
-
-
 
 ADD Gemfile $APP_PATH/Gemfile
 ADD Gemfile.lock $APP_PATH/Gemfile.lock
