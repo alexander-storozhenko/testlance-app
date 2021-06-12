@@ -1,7 +1,7 @@
 FROM ruby:2.6.5-alpine
 
 ENV APP_PATH /var/app
-ENV ROOT_PATH /great-test-app
+
 ENV BUNDLE_VERSION 2.2.15
 ENV BUNDLE_PATH /usr/local/bundle/gems
 ENV TMP_PATH /tmp/
@@ -46,6 +46,7 @@ ADD Gemfile $APP_PATH/Gemfile
 ADD Gemfile.lock $APP_PATH/Gemfile.lock
 RUN bundle install
 
+# navigate to app directory
 
 EXPOSE $RAILS_PORT
 EXPOSE 5432
