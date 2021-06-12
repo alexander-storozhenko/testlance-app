@@ -11,13 +11,13 @@ module API
 
         params do
           requires :question_id, type: String
-          requires :title_type, type: String
           requires :title, type: String
           requires :sub_title, type: String
           requires :answers_type, type: String
           requires :answers, type: String
           requires :true_answers, type: String
           requires :finished, type: Boolean
+          optional :image, type: File
         end
 
         patch 'question_data' do
@@ -29,6 +29,7 @@ module API
 
           answers = JSON.parse(params[:answers]).values
           true_answers = JSON.parse(params[:true_answers])
+          image = params[:image]
 
           question_t.update!(
               title: params[:title],
@@ -36,10 +37,20 @@ module API
               true_answers: true_answers,
               answers: answers,
               data: {
-                  title_type: params[:title_type],
                   answers_type: params[:answers_type],
               }
           )
+
+          if image
+            attachment = {
+                filename: image[:filename],
+                type: image[:type],
+                headers: image[:head],
+                tempfile: image[:tempfile]
+            }
+
+            question_t.title_image = ActionDispatch::Http::UploadedFile.new(attachment)
+          end
 
           if params[:finished]
             test_t = question_t.test_template
@@ -57,6 +68,3 @@ module API
     end
   end
 end
-
-
-

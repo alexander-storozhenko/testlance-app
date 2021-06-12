@@ -17,12 +17,9 @@ module API
         question = test.questions.find_by(number: params[:question_number])
 
         test.update!(user_data: {start_time: DateTime.now}) if params[:question_number].zero?
-
-        question_t = QuestionTemplate.find(question.question_template_id)
-
-
-        present question: question, data: question_t
-
+        question_t = question.template
+        #TODO Entity
+        present question: question, data: question_t, title_image_url: question_t.title_image_url
       end
     end
   end
