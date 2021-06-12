@@ -12,6 +12,10 @@ class QuestionTemplate < ApplicationRecord
 
   scope :author, -> {test_template.author}
 
+  def title_image_url
+    rails_blob_path(title_image, only_path: true) if title_image.attached?
+  end
+
   def generate_user_question!(user_id:, test_id:)
     user = User.find(user_id)
 
