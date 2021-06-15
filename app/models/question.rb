@@ -16,10 +16,23 @@ class Question < ApplicationRecord
       #TODO mb use other system of calculating points
       # now using: all test failing if one error
       (real_answers & answers).count == answers.count
+
+      # format
+      # {
+      #   0:'B'
+      #   1:'A'
+      #   2:'C'
+      #   3:'E'
+      #   4:'D'
+      # }
+    when 'n2n'
+      template.true_answers.each {|k, v| return false unless user_answers[k] == v}
+
+      true
     end
   end
 
-  def set_answers(answers)
+  def set_answers!(answers)
     update!(user_answers: answers)
   end
 end

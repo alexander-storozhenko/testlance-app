@@ -1,5 +1,9 @@
+require 'rating_helper'
+
 class TestTemplate < ApplicationRecord
   include Rails.application.routes.url_helpers
+  include RatingHelper
+
   has_many :question_templates, dependent: :destroy
 
   belongs_to :user
@@ -38,6 +42,13 @@ class TestTemplate < ApplicationRecord
 
   def destroy_relations
     TestRecommend.where(test_template: self).destroy_all
+  end
+
+  def update_rating(other_rating)
+    return unless other_rating.count == 5
+
+    new_rating = rating_raw.each_with_index.map{|value, index| value + other_rating[index]}
+    update(likes: five_rating_value(new_rating), rating_raw: new_rating)
   end
 
   private

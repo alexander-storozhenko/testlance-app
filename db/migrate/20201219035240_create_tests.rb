@@ -5,8 +5,13 @@ class CreateTests < ActiveRecord::Migration[5.0]
       t.string :sub_title
       t.integer :status, default: 0
 
-      t.integer :likes, default: 0
+      #TODO Rating
+      t.float :likes, default: 0
+
+      #TODO Views
       t.integer :plays, default: 0
+
+      t.json :rating_raw, default: [0,0,0,0,0]
 
       t.json :options
       t.json :colors

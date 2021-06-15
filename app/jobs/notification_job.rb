@@ -4,9 +4,9 @@ class NotificationJob < ApplicationJob
 
     messages = [
         {
-            to: "ExponentPushToken[NBSxpAIRpkRRf4cwyMDKyT]",
-            title: 'dsf',
-            body: 'sdf',
+            to: "ExponentPushToken[#{ENV['EXPO_TOKEN']}]",
+            title: data[:title],
+            body: data[:body],
             sound: 'default',
             priority: 'high',
             channelId: 'my-channel',

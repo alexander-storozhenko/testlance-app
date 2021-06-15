@@ -3,12 +3,10 @@ class QuestionTemplate < ApplicationRecord
 
   belongs_to :test_template
 
-  after_update :check_title_type
-
   has_many_attached :answers_images
   has_one_attached :title_image
 
-  enum question_type: [:one, :some]
+  enum question_type: [:one, :some, :n2n]
 
   scope :author, -> {test_template.author}
 
@@ -31,12 +29,5 @@ class QuestionTemplate < ApplicationRecord
 
   def constructing_question(user)
     test_template
-  end
-
-  def check_title_type
-    case data[:title_type]
-    when 'img'
-
-    end
   end
 end

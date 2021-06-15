@@ -105,8 +105,9 @@ ActiveRecord::Schema.define(version: 2021_05_25_175916) do
     t.string "title"
     t.string "sub_title"
     t.integer "status", default: 0
-    t.integer "likes", default: 0
+    t.float "likes", default: 0.0
     t.integer "plays", default: 0
+    t.json "rating_raw", default: [0, 0, 0, 0, 0]
     t.json "options"
     t.json "colors"
     t.integer "user_id"
