@@ -5,7 +5,10 @@ default: &default
   port: <%= ENV['DB_PORT'] %>
   user: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['IP_ADDR'] %>
 development:
+  <<: *default
+  database: great_test_development
+
+test:
   <<: *default
   database: great_test_development

@@ -11,7 +11,7 @@ gem 'rails', '~> 5.2'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.3.7'
 gem 'pg'
-
+gem 'rspec-rails', '~> 4.0'
 gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
 gem 'grape'
 
@@ -55,6 +55,8 @@ gem 'grape-entity'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+
+  gem 'factory_bot_rails', '~> 6.0'
 end
 
 group :development do

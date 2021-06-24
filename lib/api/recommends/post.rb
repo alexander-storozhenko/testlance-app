@@ -7,8 +7,9 @@ module API
       include Defaults
       format :json
 
-      RECOMMENDS_COUNT = 10
+      authorize! send_error: true
 
+      RECOMMENDS_COUNT = 10
 
       params do
         optional :page, type: Integer
@@ -27,7 +28,31 @@ module API
             user: user
         )
 
-        2.times do |q|
+        1.times do |_|
+          QuestionTemplate.create!(
+              question_type: 'n2n',
+              title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
+              answers: {
+                  up: {
+                      'A': Faker::Lorem.sentence(word_count: 1, random_words_to_add: 1),
+                      'B': Faker::Lorem.sentence(word_count: 1, random_words_to_add: 1)
+                  },
+                  down: {
+                      '0': Faker::Lorem.sentence(word_count: 1, random_words_to_add: 1),
+                      '1': Faker::Lorem.sentence(word_count: 1, random_words_to_add: 1)
+                  }
+              },
+              true_answers: {'A': 0},
+              test_template: test_t,
+              data:
+                  {
+                      title_type: "text",
+                      answers_type: "n2n,text"
+                  }
+          )
+        end
+
+        1.times do |_|
           QuestionTemplate.create!(
               question_type: 'one',
               title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
@@ -43,7 +68,7 @@ module API
           )
         end
 
-        3.times do |q|
+        3.times do |_|
           QuestionTemplate.create!(
               question_type: 'some',
               title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
