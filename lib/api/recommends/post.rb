@@ -8,6 +8,7 @@ module API
       format :json
 
       authorize! send_error: true
+      only_development!
 
       RECOMMENDS_COUNT = 10
 
@@ -92,6 +93,9 @@ module API
         )
 
         present {}
+
+      rescue => error
+        error!(error, 400)
       end
     end
   end

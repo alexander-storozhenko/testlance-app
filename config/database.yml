@@ -11,4 +11,4 @@ development:
 
 test:
   <<: *default
-  database: great_test_development
+  database: great_test_test

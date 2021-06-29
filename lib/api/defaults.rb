@@ -20,6 +20,12 @@ module API
           error!("403 Forbidden", 403) if !authenticated && send_error
         end
       end
+
+      def self.only_development!
+        before do
+          error!("403 Forbidden", 403) unless %w[development test].include? ENV['RAILS_ENV']
+        end
+      end
     end
   end
 end

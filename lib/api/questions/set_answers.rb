@@ -19,10 +19,10 @@ module API
         question = Question.find_by(test_id: params[:test_id], number: params[:question_number])
 
         #bad_request!('Not allowed', 403) if question.blank? #|| question.user_id != @user.id
-
         question.set_answers!(JSON.parse(params[:answers]))
-        present ''
+        present {}
       rescue => error
+
         error!(error, 400)
       end
     end
