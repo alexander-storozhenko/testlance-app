@@ -3,6 +3,7 @@ FactoryBot.define do
     title { 'question' }
     subtitle { 'question' }
 
+    association :test_template, factory: :test_template
 
     trait :one do
       question_type { 'one' }

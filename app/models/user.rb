@@ -23,9 +23,7 @@ class User < ApplicationRecord
     rails_blob_path(avatar, only_path: true)
   end
 
-  def jwt
-    encode_jwt({id: id})
-  end
+
 
   def authenticate!(password)
     valid_password?(password)
