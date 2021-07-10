@@ -21,7 +21,7 @@
 - `docker-compose build && docker-compose up`
 - `docker-compose run app rails db:create db:migrate`
 
-#Answer types
+# Answer types
 
 - `one,text`
 - `one,img`
@@ -36,7 +36,7 @@
 - `1toN,img`(not supported)
 - `1toN,img-text`(not supported)
 
-#Answer formats
+# Answer formats
 ## One, Some
 ```json
 [
