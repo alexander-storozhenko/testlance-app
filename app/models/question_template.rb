@@ -14,6 +14,10 @@ class QuestionTemplate < ApplicationRecord
     rails_blob_path(title_image, only_path: true) if title_image.attached?
   end
 
+  def answer_image_url(id)
+    rails_blob_path(answers_images[id], only_path: true) if answers_images.attached?
+  end
+
   def generate_user_question!(user_id:, test_id:)
     user = User.find(user_id)
 
@@ -25,9 +29,5 @@ class QuestionTemplate < ApplicationRecord
 
   def from_template(user_id, test_id, number)
     Question.create!(user_id: user_id, test_id: test_id, number: number, question_template: self)
-  end
-
-  def constructing_question(user)
-    test_template
   end
 end
