@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/54493133/126068632-9a39da5c-4aa5-43d8-99f6-671f5c12e824.png" alt="testlance"/>
+  <img src="https://user-images.githubusercontent.com/54493133/126068744-2cceadde-8116-449e-b699-126e3d566c33.png" alt="testlance"/>
 </p>
 
 ## Installation
