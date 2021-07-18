@@ -1,5 +1,9 @@
 # README
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/54493133/126068484-87e594da-b775-4d72-8302-716862e7e9a3.png" alt="Sublime's custom image"/>
+</p>
+
 ## Installation
 - `gem install bundler`
 - `bundle install`
