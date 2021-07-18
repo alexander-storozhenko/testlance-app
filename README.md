@@ -61,5 +61,47 @@
     }
 }
 ```
+
+# Lua scripts support
+## Reason
+Default test has simple count of right answers (one error in 1toN will be 0). User can create own logic of results calculating.
+## Examples
+### Default alghorithm of question (type 'one answer')
+*in fact it counts inside ruby because of performance but I want to show principle of counting*
+```lua
+local result = 0
+
+for key, _ in pairs(G_ALL_USER_ANSWERS) do
+    if G_TRUE_ANSWERS[key] == 'true' then
+        result = 1
+    end
+end
+
+return result
+```
+### Limited question (user answer points will be decrease over time)
+```lua
+local result = 0
+
+for key, _ in pairs(user_answers) do
+    if true_answers[key] == 'true' then
+        result = 1
+    end
+end
+
+if G_DATE_NOW > to_date('05/08/2021') then
+    return result/2
+else
+    if G_DATE_NOW > to_date('06/08/2021') then
+        return result/3
+    end
+end
+
+return result
+```
+*In the future, it will be possible to create your own profile variables and use from instead of inline values*
+
+Examples was used global varibales (G_DATE_NOW, G_TRUE_ANSWERS, G_ALL_USER_ANSWERS) and helper functions (to_date). More about them in [testlance-parser](https://github.com/alexander-storozhenko/testlance-parser)
+
 ---
 *MIT license Copyright (c) 2021 Alexander Storozhenko*
