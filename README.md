@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/54493133/126068744-2cceadde-8116-449e-b699-126e3d566c33.png" alt="testlance"/>
-</p>
+# Readme
+
+![testlance-logo-title](https://user-images.githubusercontent.com/54493133/126068961-266eebee-526e-4ace-b318-cef84b3e671d.png)
 
 ## Installation
 - `gem install bundler`
