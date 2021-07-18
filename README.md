@@ -1,7 +1,5 @@
-# README
-
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/54493133/126068484-87e594da-b775-4d72-8302-716862e7e9a3.png" alt="Sublime's custom image"/>
+  <img src="https://user-images.githubusercontent.com/54493133/126068632-9a39da5c-4aa5-43d8-99f6-671f5c12e824.png" alt="testlance"/>
 </p>
 
 ## Installation
