@@ -12,6 +12,7 @@ class Test < ApplicationRecord
 
   # TODO create parting answers
   def calc_result
-    questions.select(&:result).count
+    questions.where(scripted: false).select(&:result).count
+    questions.where(scripted: true).result
   end
 end

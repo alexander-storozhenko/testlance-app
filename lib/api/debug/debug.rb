@@ -8,7 +8,7 @@ module API
       format :json
 
       get 'debug' do
-        'ok'
+        'debug'
       end
     end
   end

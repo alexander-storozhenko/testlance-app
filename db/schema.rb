@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_05_102155) do
+ActiveRecord::Schema.define(version: 2021_07_17_173425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "access_tokens", force: :cascade do |t|
-    t.string "private_token"
     t.string "refresh_token"
-    t.datetime "expires_at"
+    t.string "salt"
+    t.datetime "rt_expires_at"
+    t.datetime "jwt_expires_at"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_07_05_102155) do
     t.json "true_answers"
     t.json "data"
     t.integer "test_template_id"
+    t.boolean "scripted", default: false
     t.index ["test_template_id"], name: "index_question_templates_on_test_template_id"
   end
 
@@ -100,9 +102,9 @@ ActiveRecord::Schema.define(version: 2021_07_05_102155) do
   end
 
   create_table "results", id: :serial, force: :cascade do |t|
-    t.integer "test_id"
+    t.integer "test_template_id"
     t.json "data"
-    t.index ["test_id"], name: "index_results_on_test_id"
+    t.index ["test_template_id"], name: "index_results_on_test_template_id"
   end
 
   create_table "test_recommends", id: :serial, force: :cascade do |t|

@@ -22,7 +22,6 @@ module API
         question.set_answers!(JSON.parse(params[:answers]))
         present {}
       rescue => error
-
         error!(error, 400)
       end
     end

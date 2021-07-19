@@ -15,6 +15,8 @@ gem 'rspec-rails', '~> 4.0'
 gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
 gem 'grape'
 
+gem 'testlance_parser', git: "https://github.com/alexander-storozhenko/testlance-parser.git"
+
 #gem 'kaminari-mongoid'
 gem 'bcrypt'
 gem 'devise'
@@ -51,6 +53,7 @@ gem "sidekiq-cron"
 gem 'exponent-server-sdk'
 gem 'figaro'
 gem 'grape-entity'
+gem 'sidekiq-unique-jobs'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
