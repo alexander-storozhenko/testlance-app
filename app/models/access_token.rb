@@ -1,18 +1,32 @@
 class AccessToken < ApplicationRecord
-  include Auth
+  JWT_EXPIRE = 15.minutes.freeze
+  RT_EXPIRE = 30.days.freeze
 
-  JWT_EXPIRE = 15.minutes
-  RT_EXPIRE = 30.days
+  class << self
+    include Auth
 
-  def new_jwt
-    jwt = encode_jwt({id: user.id})
+    def refresh_jwt!(user_id)
+      update! access_token_data
 
-    time_now = DateTime.utc.now
+      encode_jwt({id: user_id})
+    end
 
-    update! refresh_token: random_hash,
-            rt_expires_at: time_now + RT_EXPIRE,
-            jwt_expires_at: time_now + JWT_EXPIRE
+    def create_jwt!(user_id)
+      create! access_token_data
 
-    jwt
+      encode_jwt({id: user_id})
+    end
+
+    private
+
+    def access_token_data
+      time_now = DateTime.now
+
+      {
+          refresh_token: random_hash,
+          rt_expires_at: time_now + RT_EXPIRE,
+          jwt_expires_at: time_now + JWT_EXPIRE
+      }
+    end
   end
 end

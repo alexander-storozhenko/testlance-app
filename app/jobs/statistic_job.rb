@@ -1,3 +1,4 @@
+# TODO to worker
 class StatisticJob < ApplicationJob
   def perform
     views = Statistic::UserTestStatistic.views

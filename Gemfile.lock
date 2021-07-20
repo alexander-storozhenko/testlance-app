@@ -272,6 +272,9 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
+    rspec-sidekiq (3.1.0)
+      rspec-core (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
     rspec-support (3.10.2)
     ruby2_keywords (0.0.5)
     rufus-lua (1.1.5)
@@ -374,6 +377,7 @@ DEPENDENCIES
   rails_admin!
   redis
   rspec-rails (~> 4.0)
+  rspec-sidekiq
   sass-rails (~> 5.0)
   sidekiq
   sidekiq-cron

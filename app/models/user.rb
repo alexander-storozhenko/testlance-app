@@ -23,8 +23,6 @@ class User < ApplicationRecord
     rails_blob_path(avatar, only_path: true)
   end
 
-
-
   def authenticate!(password)
     valid_password?(password)
   end

@@ -15,7 +15,7 @@ module API
       get 'results' do
         test = Test.find(params[:test_id])
 
-        TestResultJob.perform_async(test.id)
+        TestResultWorker.perform_async(test.id)
 
         ''
       rescue => error

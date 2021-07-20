@@ -1,9 +1,9 @@
 require 'testlance_parser'
 
-class TestResultJob < ApplicationJob
-  include Sidekiq::Workers
+class TestResultWorker
+  include Sidekiq::Worker
 
-  sidekiq_options lock: :until_executed, lock_timeout: 2
+  sidekiq_options queue: :scripts_exec, lock: :until_executed, lock_timeout: 2
 
   def perform(test_id)
     test = Test.find(test_id)
