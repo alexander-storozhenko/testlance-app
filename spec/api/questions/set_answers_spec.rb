@@ -41,8 +41,6 @@ describe API::Questions::SetAnswers do
         expect(Test.count).to eq 1
         expect(QuestionTemplate.count).to eq 1
         expect(Question.count).to eq 1
-        expect(Test.first.calc_result).to eq 1
-        expect(Question.first.result).to eq true
         expect(Question.first.user_answers.to_json).to eq answers_one_right
       end
 
@@ -61,8 +59,6 @@ describe API::Questions::SetAnswers do
         expect(Test.count).to eq 1
         expect(QuestionTemplate.count).to eq 1
         expect(Question.count).to eq 1
-        expect(Test.first.calc_result).to eq 1
-        expect(Question.first.result).to eq true
         expect(Question.first.user_answers.to_json).to eq answers_some_right
       end
 
@@ -81,8 +77,6 @@ describe API::Questions::SetAnswers do
         expect(Test.count).to eq 1
         expect(QuestionTemplate.count).to eq 1
         expect(Question.count).to eq 1
-        expect(Test.first.calc_result).to eq 1
-        expect(Question.first.result).to eq true
         expect(Question.first.user_answers.to_json).to eq answers_n2n_right
       end
     end
