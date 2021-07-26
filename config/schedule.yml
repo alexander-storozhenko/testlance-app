@@ -1,4 +1,4 @@
 statistic:
   cron: "*/1 * * * *" # execute at every 1 minute
-  class: "StatisticJob"
-  queue: statistics
+  class: "StatisticWorker"
+  queue: scheduled

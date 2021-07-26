@@ -1,5 +1,8 @@
-# TODO to worker
-class StatisticJob < ApplicationJob
+class StatisticWorker
+  include Sidekiq::Worker
+
+  sidekiq_options queue: :scheduled, lock: :until_executed
+
   def perform
     views = Statistic::UserTestStatistic.views
     rating = Statistic::UserTestStatistic.rating

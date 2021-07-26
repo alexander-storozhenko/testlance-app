@@ -1,5 +1,8 @@
-# TODO to worker
-class NotificationJob < ApplicationJob
+class NotificationWorker
+  include Sidekiq::Worker
+
+  sidekiq_options queue: :notify, lock: :until_executed
+
   def perform(data)
     client = Exponent::Push::Client.new
 

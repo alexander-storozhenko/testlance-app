@@ -3,7 +3,7 @@ module Notifications
     def self.push(data)
       return unless data.blank?
 
-      NotificationJob.perform_async(data)
+      NotificationWorker.perform_async(data)
     end
   end
 end
