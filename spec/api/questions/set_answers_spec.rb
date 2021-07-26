@@ -62,12 +62,12 @@ describe API::Questions::SetAnswers do
         expect(Question.first.user_answers.to_json).to eq answers_some_right
       end
 
-      it 'question type n2n' do
+      it 'question type 1to1' do
         patch path,
               headers: {'Access-Token': access_token},
               params: {
                   question_number: question_n2n.number,
-                  question_type: 'n2n',
+                  question_type: '1to1',
                   answers: answers_n2n_right,
                   test_id: test.id.to_s
               }
