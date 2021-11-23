@@ -1,4 +1,6 @@
 class Test < ApplicationRecord
+  include TestResultMethods
+
   belongs_to :test_template
   belongs_to :user
   has_many :questions, dependent: :destroy
@@ -10,9 +12,29 @@ class Test < ApplicationRecord
     Question.where(test_id: id).destroy_all
   end
 
-  # TODO create parting answers
   def calc_result
-    questions.where(scripted: false).select(&:result).count
-    questions.where(scripted: true).result
+    # format: { number => result }
+    results = questions.map { |question| { question.number => question.calculate_result } }
+
+    if template.scripted_result?
+      data = build_data(results)
+
+      executor = Testlance::Script::Executor.new(data)
+      return executor.run!(template.data['user_script'].strip)
+    end
+
+    calc_result_by_default_method(results)
+  end
+
+  private
+
+  def calc_result_by_default_method(results)
+    send("calc_#{template.result_calc_method}_result", results.map(&:values).flatten)
+  end
+
+  def build_data(results)
+    {
+      **results,
+    }
   end
 end

@@ -5,34 +5,51 @@ class Question < ApplicationRecord
 
   alias_attribute :template, :question_template
 
+  QUESTION_SCRIPT_DATA_VARS = [:G_Q_TITLE, :G_Q_DESCRIPTION].freeze # TODO complete list
+
   def set_answers!(answers)
     update!(user_answers: answers)
   end
 
-  def calculate_manual_result
-    return if scripted?
-
-    update_manual
+  def calculate_result
+    template.scripted? ? calculate_result_with_script : calculate_result_by_default
   end
 
   private
 
-  def update_manual
-    result =
-        case template.question_type
-        when 'one'
-          template.true_answers.first == user_answers.keys.first.to_i
-        when 'some'
-          answers = template.true_answers.map { |k, v| k if v }.reject { |e| e.blank? }
-          real_answers = user_answers.map { |k, v| k if v }.reject { |e| e.blank? }
+  def calculate_result_with_script
+    validated_data = validate_script_data(build_data(template, nil))
 
-          (real_answers & answers).count == answers.count
-        when 'n2n'
-          template.true_answers.each { |k, v| return false unless user_answers[k] == v }
+    executor = Testlance::Script::Executor.new(validated_data)
+    executor.run!(template.data['user_script'].strip)
+  end
 
-          true
-        end
+  def calculate_result_by_default
+    case template.question_type
+    when 'one'
+      template.true_answers.first == user_answers.keys.first.to_i ? 1 : 0
+    when 'some'
+      answers = template.true_answers.map { |k, v| k if v }.reject { |e| e.blank? }
+      real_answers = user_answers.map { |k, v| k if v }.reject { |e| e.blank? }
 
-    update!(result: result)
+      (real_answers & answers).count == answers.count ? 1 : 0
+    when '1to1'
+      template.true_answers.each { |k, v| return 0 unless user_answers[k] == v }
+
+      1
+    end
+  end
+
+  def build_data(question_t, _test_t)
+    {
+      G_Q_TITLE: question_t.title,
+      G_Q_DESCRIPTION: question_t.subtitle,
+    }
+  end
+
+  def validate_script_data(data)
+    raise StandardError, 'script data invalid' unless data.keys.sort == QUESTION_SCRIPT_DATA_VARS.sort
+
+    data
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_11_175111) do
+ActiveRecord::Schema.define(version: 2021_07_17_173425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,9 @@ ActiveRecord::Schema.define(version: 2021_11_11_175111) do
     t.json "options"
     t.json "colors"
     t.integer "user_id"
+    t.boolean "scripted_result", default: false
+    t.integer "result_calc_method", default: 0
+    t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_test_templates_on_user_id"
@@ -154,21 +157,6 @@ ActiveRecord::Schema.define(version: 2021_11_11_175111) do
     t.datetime "remember_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "video_segs", force: :cascade do |t|
-    t.bigint "video_id"
-    t.integer "number"
-    t.index ["video_id"], name: "index_video_segs_on_video_id"
-  end
-
-  create_table "videos", force: :cascade do |t|
-    t.string "name"
-    t.string "ext"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

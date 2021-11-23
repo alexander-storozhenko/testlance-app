@@ -4,5 +4,3 @@ threads threads_count, threads_count
 port        ENV.fetch("PORT") { 3000 }
 
 environment ENV.fetch("RAILS_ENV") { "development" }
-
-bind "tcp://#{ENV['IP_ADDR']}:#{ENV['PORT']}"

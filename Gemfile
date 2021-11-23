@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.6.5"
+ruby "2.7.2"
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -15,7 +15,7 @@ gem 'rspec-rails', '~> 4.0'
 gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
 gem 'grape'
 
-gem 'testlance_parser', git: "https://github.com/alexander-storozhenko/testlance-parser.git"
+gem 'testlance_script', git: "https://github.com/alexander-storozhenko/testlance-script.git"
 
 #gem 'kaminari-mongoid'
 gem 'bcrypt'

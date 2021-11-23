@@ -10,7 +10,7 @@ module API
 
       params do
         requires :question_number, type: Integer
-        requires :question_type, type: String, values: %w[one some 1to1]
+        requires :question_type, type: String, values: %w[one some 1to1] # TODO hmmm????
         requires :answers, type: String
         requires :test_id, type: String
       end

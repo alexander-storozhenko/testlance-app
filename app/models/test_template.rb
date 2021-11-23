@@ -12,6 +12,10 @@ class TestTemplate < ApplicationRecord
 
   enum status: [:created, :constructing, :editing]
 
+  #  avg: results.sum / results.count, if: result >= 0 and <= 5
+  #  bool: results.where(result > 0).count
+  enum result_calc_method: %i[avg bool]
+
   def image_url
     rails_blob_path(image, only_path: true) if image.attached?
   end

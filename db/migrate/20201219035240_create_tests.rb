@@ -18,6 +18,10 @@ class CreateTests < ActiveRecord::Migration[5.0]
 
       t.belongs_to :user
 
+      t.boolean :scripted_result, default: false
+      t.integer :result_calc_method, default: 0
+      t.json :data
+
       t.timestamps
     end
 

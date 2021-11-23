@@ -44,7 +44,7 @@ module API
           test_t.save!
 
           sleep 2
-          present image_url: test_t.image_url
+          present image ? {image_url: test_t.image_url} : ''
         end
       end
     end
