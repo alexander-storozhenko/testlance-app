@@ -73,8 +73,8 @@ Default test has simple count of right answers (one error in 1toN will be 0). Us
 ```lua
 local result = 0
 
-for key, _ in pairs(G_ALL_USER_ANSWERS) do
-    if G_TRUE_ANSWERS[key] == 'true' then
+for key, _ in pairs(USER_ANSWERS) do
+    if TRUE_ANSWERS[key] == 'true' then
         result = 1
     end
 end
@@ -91,10 +91,10 @@ for key, _ in pairs(user_answers) do
     end
 end
 
-if G_DATE_NOW > to_date('05/08/2021') then
+if compare_dates(DATE_NOW, '05/08/2021') == -1 then
     return result/2
 else
-    if G_DATE_NOW > to_date('06/08/2021') then
+    if compare_dates(DATE_NOW, '05/08/2021') == 1 then
         return result/3
     end
 end
