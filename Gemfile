@@ -48,6 +48,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'whenever'
 gem "sidekiq"
 gem "sidekiq-cron"
+gem 'rspec-sidekiq'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'exponent-server-sdk'

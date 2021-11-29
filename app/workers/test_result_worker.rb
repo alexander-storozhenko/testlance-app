@@ -8,14 +8,15 @@ class TestResultWorker
   def perform(test_id)
     test = Test.find(test_id)
 
-    test.calc_result
+    result_value = test.calc_result
 
     ## Result for user statistic
-    # Result.create!(data: {
-    #   value: 1,
-    #   # TODO user script
-    #   # description
-    #   # result in words
-    # }, test: test)
+    Result.create!(
+      value: result_value,
+      data: {
+      # TODO user script
+      # description
+      # result in words
+    }, test: test)
   end
 end

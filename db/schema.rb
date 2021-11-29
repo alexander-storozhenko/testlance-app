@@ -102,9 +102,10 @@ ActiveRecord::Schema.define(version: 2021_07_17_173425) do
   end
 
   create_table "results", id: :serial, force: :cascade do |t|
-    t.integer "test_template_id"
+    t.integer "test_id"
+    t.float "value"
     t.json "data"
-    t.index ["test_template_id"], name: "index_results_on_test_template_id"
+    t.index ["test_id"], name: "index_results_on_test_id"
   end
 
   create_table "test_recommends", id: :serial, force: :cascade do |t|

@@ -1,13 +1,14 @@
 require 'rails_helper'
 require 'shared/access_token'
+require 'sidekiq/testing'
 
 describe API::Tests do
   include_context 'admin'
 
   # let(:path) { '/api/v1/tests/results' }
   let(:test_template) { create(:test_template, user: admin) }
-  let(:question_template_text_one) { create(:question_template, :one,  test_template: test_template, ) }
-  let(:json_result) {JSON.parse(response.body)}
+  let(:question_template_text_one) { create(:question_template, :one, test_template: test_template) }
+  let(:json_result) { JSON.parse(response.body) }
   # let(:test) { create(:test, test_template: test_template) }
 
   context 'when create test' do
@@ -20,10 +21,10 @@ describe API::Tests do
 
       path = '/api/v1/tests/preview_info'
       get path,
-           headers: { 'Access-Token': access_token },
-           params: {
-             test_t_id: test_template.id
-           }
+          headers: { 'Access-Token': access_token },
+          params: {
+            test_t_id: test_template.id
+          }
 
       expect(response.status).to eq 200
       expect(Test.count).to eq 1
@@ -47,32 +48,26 @@ describe API::Tests do
 
       path = '/api/v1/questions/set_answers'
       patch path,
-          headers: { 'Access-Token': access_token },
-          params: {
-            answers: {2 => true}.to_json,
-            test_id: test.id,
-            question_number: 1,
-            question_type: 'one',
-          }
+            headers: { 'Access-Token': access_token },
+            params: {
+              answers: { 2 => true }.to_json,
+              test_id: test.id,
+              question_number: 1,
+              question_type: 'one',
+            }
 
       expect(response.status).to eq 200
+
+      # need for starting job
+      Sidekiq::Testing.inline!
 
       path = '/api/v1/tests/results'
       get path,
-           headers: { 'Access-Token': access_token },
-           params: { test_id: test.id }
+          headers: { 'Access-Token': access_token },
+          params: { test_id: test.id }
 
       expect(response.status).to eq 200
-      expect(TestResultWorker.jobs.size).to eq 1
-
-      test.template.update!(result_calc_method: :bool)
-      # simulate worker starting
-      p test.calc_result
-
-
-
-
-
+      expect(test.result.value).to eq 1.0
     end
   end
 end
