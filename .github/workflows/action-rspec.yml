@@ -35,7 +35,7 @@ jobs:
 
     env:
       RAILS_ENV: test
-      GEMFILE_RUBY_VERSION: 2.6.5
+      GEMFILE_RUBY_VERSION: 2.7.2
       PGHOST: localhost
       PGUSER: postgres
       TZ: "Europe/Warsaw"
@@ -49,7 +49,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6.5
+          ruby-version: 2.7.2
           bundler-cache: true
 
       - name: Create DB
