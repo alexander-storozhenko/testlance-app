@@ -103,7 +103,7 @@ return result
 ```
 *In the future, it will be possible to create your own profile variables and use from instead of inline values*
 
-Examples was used global varibales (G_DATE_NOW, G_TRUE_ANSWERS, G_ALL_USER_ANSWERS) and helper functions (to_date). More about them in [testlance-parser](https://github.com/alexander-storozhenko/testlance-parser)
+Examples was used global varibales (G_DATE_NOW, G_TRUE_ANSWERS, G_ALL_USER_ANSWERS) and helper functions (to_date). More about them in [testlance-script](https://github.com/alexander-storozhenko/testlance-script)
 
 ---
 *MIT license Copyright (c) 2021 Alexander Storozhenko*
