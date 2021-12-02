@@ -32,11 +32,11 @@
 - `some,img`
 - `some,img-text`
 - `1to1,text`
-- `1to1,img`(not supported)
-- `1to1,img-text`(not supported)
-- `1toN,text`(not supported)
-- `1toN,img`(not supported)
-- `1toN,img-text`(not supported)
+- `1to1,img`
+- `1to1,img-text`
+- `1toN,text`
+- `1toN,img`
+- `1toN,img-text`
 
 # Answer formats
 ## One, Some
