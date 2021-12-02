@@ -12,7 +12,7 @@ gem 'rails', '~> 5.2'
 # gem 'sqlite3', '~> 1.3.7'
 gem 'pg'
 gem 'rspec-rails', '~> 4.0'
-gem 'rails_admin', git: "https://github.com/sferik/rails_admin.git"
+gem 'rails_admin'
 gem 'grape'
 
 gem 'testlance_script', git: "https://github.com/alexander-storozhenko/testlance-script.git"
