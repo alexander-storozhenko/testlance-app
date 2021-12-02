@@ -6,7 +6,7 @@ module API
 
       format :json
 
-      #authorize!
+      #authenticate!
 
       params do
         requires :question_number, type: Integer
@@ -20,7 +20,8 @@ module API
 
         #bad_request!('Not allowed', 403) if question.blank? #|| question.user_id != @user.id
         question.set_answers!(JSON.parse(params[:answers]))
-        present {}
+
+        ''
       rescue => error
         error!(error, 400)
       end

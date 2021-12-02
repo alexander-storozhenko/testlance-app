@@ -4,7 +4,7 @@ module API
     class MainInfo < Grape::API
       include Defaults
       format :json
-      authorize! send_error: true
+      authenticate! send_error: true
 
       params do
         requires :id, desc: 'User test template id'

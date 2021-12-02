@@ -8,7 +8,7 @@ module API
 
       RECOMMENDS_COUNT = 10
 
-      #authorize!
+      #authenticate!
 
       params do
         optional :page, type: Integer

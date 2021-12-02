@@ -6,7 +6,7 @@ module API
 
       format :json
 
-      authorize!
+      authenticate!
 
       params do
         requires :test_t_id, type: Integer

@@ -5,7 +5,7 @@ module API
     extend ActiveSupport::Concern
 
     included do
-      def self.authorize!(role: :sub_admin, send_error: false)
+      def self.authenticate!(role: :sub_admin, send_error: false)
         before do
           authenticated =
               case role

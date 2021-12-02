@@ -6,7 +6,7 @@ module API
       include Defaults
       format :json
 
-      auth
+      authenticate!
 
       params do
         requires :minitest_id, type: Integer

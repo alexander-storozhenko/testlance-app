@@ -5,7 +5,7 @@ module API
       include Defaults
       format :json
 
-      authorize! send_error: true
+      authenticate! send_error: true
 
       get 'user_data' do
         stats = @user.test_templates.each_with_object({plays: 0, likes: 0, likes_count: 0}) do |test, hsh|

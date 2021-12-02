@@ -6,9 +6,24 @@ class QuestionTemplate < ApplicationRecord
   has_many_attached :answers_images
   has_one_attached :title_image
 
-  enum question_type: [:one, :some, :n2n]
+  enum question_type: [:one, :some, :one2one]
 
   scope :author, -> {test_template.author}
+
+  enum answers_type: [
+    :one_text,
+    :one_img,
+    :one_img_text,
+    :some_text,
+    :some_img,
+    :some_img_text,
+    :one2one_text,
+    :one2one_img,
+    :one2one_img_text,
+    :one2N_text,
+    :one2N_img,
+    :one2N_img_text,
+  ]
 
   def title_image_url
     rails_blob_path(title_image, only_path: true) if title_image.attached?

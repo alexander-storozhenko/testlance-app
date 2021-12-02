@@ -1,8 +1,9 @@
 class CreateQuestions < ActiveRecord::Migration[5.0]
   def change
     create_table :question_templates do |t|
-      t.integer :question_type
       t.integer :number
+      t.integer :question_type
+      t.integer :answers_type
 
       t.string :title
       t.string :subtitle

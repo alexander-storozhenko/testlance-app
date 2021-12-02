@@ -7,7 +7,7 @@ module API
       include Defaults
       format :json
 
-      authorize! send_error: true
+      authenticate! send_error: true
       only_development!
 
       RECOMMENDS_COUNT = 10

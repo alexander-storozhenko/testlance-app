@@ -7,7 +7,7 @@ module API
         include Defaults
         format :json
 
-        authorize! send_error: true
+        authenticate! send_error: true
 
         params do
           requires :test_t_id, type: Integer

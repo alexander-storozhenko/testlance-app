@@ -5,7 +5,7 @@ module API
       include Defaults
       format :json
 
-      #authorize!
+      #authenticate!
 
       params do
         requires :test_id, type: Integer

@@ -4,7 +4,7 @@ module API
       class Template < Grape::Entity
         root :question_templates, :question_template
 
-        expose :id, :question_type, :number, :title, :subtitle, :answers, :data, :title_image_url
+        expose :id, :question_type, :number, :title, :subtitle, :answers, :answers_type, :data, :title_image_url
       end
     end
   end

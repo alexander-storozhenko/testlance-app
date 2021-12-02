@@ -71,8 +71,9 @@ ActiveRecord::Schema.define(version: 2021_07_17_173425) do
   end
 
   create_table "question_templates", id: :serial, force: :cascade do |t|
-    t.integer "question_type"
     t.integer "number"
+    t.integer "question_type"
+    t.integer "answers_type"
     t.string "title"
     t.string "subtitle"
     t.json "answers"

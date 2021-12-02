@@ -7,13 +7,13 @@ module API
         include Defaults
         format :json
 
-        #authorize! send_error: true
+        #authenticate! send_error: true
 
         params do
           requires :question_id, type: String
           requires :title, type: String
           requires :sub_title, type: String
-          requires :answers_type, type: String
+          requires :answers_type, type: String, values: QuestionTemplate.answers_types.keys
           requires :answers, type: String
           requires :true_answers, type: String
           requires :finished, type: Boolean
@@ -36,9 +36,7 @@ module API
               subtitle: params[:sub_title],
               true_answers: true_answers,
               answers: answers,
-              data: {
-                  answers_type: params[:answers_type],
-              }
+              answers_type: params[:answers_type]
           )
 
           if image

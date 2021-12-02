@@ -26,7 +26,7 @@ module API
                            .map{|template| JSON.parse(template.to_json).merge({author: template.author.name})}
         #
         user_results = User.where('lower(name) LIKE ?', fragment).limit(RESULTS_MAX_COUNT)
-        p card_results
+
         present cards: card_results, authors: user_results
         rescue
           error!(message: "Bad request", code: 400)

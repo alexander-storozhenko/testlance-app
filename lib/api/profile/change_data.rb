@@ -7,7 +7,7 @@ module API
 
       LIMIT = 20
 
-      authorize! send_error: true
+      authenticate! send_error: true
 
       params do
         optional :nickname, type: String
