@@ -16,14 +16,13 @@ class Test < ApplicationRecord
     # format: { number => result }
     results = questions.map { |question| { question.number => question.calculate_result } }
 
-    if template.scripted_result?
-      data = build_data(results)
+    return calc_result_by_default_method(results) unless template.scripted_result?
 
-      executor = Testlance::Script::Executor.new(data)
-      return executor.run!(template.data['user_script'].strip)
-    end
+    data = build_data(results)
 
-    calc_result_by_default_method(results)
+
+    executor = Testlance::Script::Executor.new(data)
+    executor.run!(template.data['user_script'].strip)
   end
 
   private

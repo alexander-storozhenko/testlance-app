@@ -1,11 +1,13 @@
 class Question < ApplicationRecord
+  include QuestionExecutorData
+
   belongs_to :question_template
   belongs_to :user
   belongs_to :tests, optional: true
 
   alias_attribute :template, :question_template
 
-  QUESTION_SCRIPT_DATA_VARS = [:G_Q_TITLE, :G_Q_DESCRIPTION].freeze # TODO complete list
+  QUESTION_SCRIPT_DATA_VARS = [:Q_TITLE, :Q_DESCRIPTION, :USER_ANSWERS].freeze # TODO complete list
 
   def set_answers!(answers)
     update!(user_answers: answers)
@@ -42,8 +44,9 @@ class Question < ApplicationRecord
 
   def build_data(question_t, _test_t)
     {
-      G_Q_TITLE: question_t.title,
-      G_Q_DESCRIPTION: question_t.subtitle,
+      Q_TITLE: {type: :string, value: question_t.title},
+      Q_DESCRIPTION: {type: :string, value:question_t.subtitle},
+      USER_ANSWERS: {type: :table, value: user_answers}
     }
   end
 

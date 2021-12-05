@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :question_template do
     title { 'question' }
     subtitle { 'question' }
+    scripted {false}
 
     association :test_template, factory: :test_template
 
