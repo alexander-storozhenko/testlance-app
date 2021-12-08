@@ -11,6 +11,7 @@ class TestTemplate < ApplicationRecord
   has_one_attached :image
 
   enum status: [:created, :constructing, :editing]
+  enum confirm_status: [:pending, :not_confirmed, :confirmed]
 
   #  avg: results.sum / results.count, if: result >= 0 and <= 5
   #  bool: results.where(result > 0).count

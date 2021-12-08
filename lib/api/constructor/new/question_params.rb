@@ -18,7 +18,6 @@ module API
           test_t = TestTemplate.find_by!(user: @user, status: :constructing)
           question_t = QuestionTemplate.create!(test_template: test_t, question_type: params[:question_type])
 
-          sleep 3
           present question_id: question_t.id
         rescue => error
           error!(error, 400)

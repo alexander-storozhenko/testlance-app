@@ -5,6 +5,7 @@ module API
     module New
       class Card < Grape::API
         include Defaults
+
         format :json
         authenticate! send_error: true
 
