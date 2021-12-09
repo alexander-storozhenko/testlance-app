@@ -8,6 +8,7 @@ describe API::Profile::UserData do
     it 'test' do
         get path,
             headers: { 'Access-Token': access_token}
+            p response.body
       expect(response.status).to eq 200
     end
   end
