@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shared/access_token'
 
 describe API::Profile::UserData do
   context 'when admin' do
