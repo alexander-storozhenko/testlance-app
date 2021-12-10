@@ -20,8 +20,8 @@ describe API::Questions::SetAnswers do
     let(:answers_one_right) { {'2': true}.to_json }
     let(:answers_some) { {'1': true, '3': true}.to_json }
     let(:answers_some_right) { {'1': true, '2': true}.to_json }
-    let(:answers_n2n) { {'A': 2}.to_json }
-    let(:answers_n2n_right) { {'A': 0}.to_json }
+    let(:answers_n2n) { {'A': 2 }.to_json }
+    let(:answers_n2n_right) { {'A': 0 }.to_json }
 
     let(:path) { '/api/v1/questions/set_answers' }
 

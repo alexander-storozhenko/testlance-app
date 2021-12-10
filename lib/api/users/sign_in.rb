@@ -1,8 +1,10 @@
 require 'bcrypt'
+require 'auth'
 module API
   module Users
     class SignIn < Grape::API
       include Defaults
+      include Auth
 
       format :json
 
@@ -19,7 +21,7 @@ module API
         user.authenticate!(params[:password])
         session[:current_user] = user
 
-        present access_token: user.jwt
+        present access_token: encode_jwt({id: user.id})
        rescue StandardError => e
          error! e.message
       end

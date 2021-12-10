@@ -3,7 +3,7 @@ class Question < ApplicationRecord
 
   belongs_to :question_template
   belongs_to :user
-  belongs_to :tests, optional: true
+  belongs_to :test, optional: true
 
   alias_attribute :template, :question_template
 

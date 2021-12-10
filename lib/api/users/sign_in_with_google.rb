@@ -1,9 +1,11 @@
 require 'api/defaults'
+require 'auth'
 
 module API
   module Users
     class SignInWithGoogle < Grape::API
       include Defaults
+      include Auth
 
       format :json
 
@@ -38,7 +40,7 @@ module API
           )
         end
 
-        present access_token: user.jwt
+        present access_token: encode_jwt({id: user.id})
       rescue => e
         error!(e, 400)
       end

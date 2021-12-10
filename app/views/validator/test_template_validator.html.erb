@@ -7,5 +7,8 @@
   <title>Document</title>
 </head>
 <body>
+<% @tests_t.each do |test| %>
+  <%= test.title %>
+<% end %>
 </body>
 </html>

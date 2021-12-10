@@ -31,7 +31,7 @@ module API
 
         1.times do |_|
           QuestionTemplate.create!(
-              question_type: 'n2n',
+              question_type: :one2one,
               title: Faker::Lorem.sentence(word_count: 2, random_words_to_add: 1),
               answers: {
                   up: {
