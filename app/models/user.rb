@@ -32,4 +32,10 @@ class User < ApplicationRecord
 
     data.each_with_index { |notification, i| mobile_devices[i].send_notification(notification) }
   end
+
+  # Recommendations section
+
+  def pop_recommends(size: 1)
+    data['test_t_recommend_ids'].pop(size)
+  end
 end
