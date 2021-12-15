@@ -17,9 +17,10 @@ module Recommends
 
     THRESHOLD_RATING = 4.2.freeze
     THRESHOLD_PLAYS = 100.freeze
+    EXPIRED_LIMIT = 2.days.freeze
 
     # Simple algorithm in case when app don't know nothing about user.
-    def popular_init_set(limit: 10)
+    def popular_init_seq(limit: 10)
       TestTemplate.order(rating: :desc).limit(limit)
     end
 
@@ -29,7 +30,7 @@ module Recommends
     # Function return the most crossing tests by tag in descent range.
     #
     # It is low speed operation. I'm not recommend to use function without *cache_result* flag!
-    def popular_set_by_tag!(user, limit: 10, cache_result: true)
+    def popular_seq_by_tag!(user, limit: 10, cache_result: true)
       # data['test_t_tags_visits'] -> [{tag_number => visits_count}]
       user_visits = user.data['test_t_tags_visits']
 
@@ -44,10 +45,10 @@ module Recommends
           .limit(limit)
       end
 
-      recommends = uniq_set_by_id(ranged_set).sort_by { |_, v| v }
+      recommends = uniq_seq_by_id(ranged_set).sort_by { |_, v| v }
 
       if cache_result
-        user.data['test_t_recommend_ids'].concat(recommends)
+        user.data['test_t_recommend_ids'] << { DateTime.now => recommends }
         user.save!
       end
 
@@ -58,12 +59,23 @@ module Recommends
     # test templates set by count.
     #
     # Return [{ id => set.count }, ...]
-    def uniq_set_by_id(set, result = [])
+    def uniq_seq_by_id(set, result = [])
       return result if set.count == 0
 
       id = set.first.id
       result << { id => set.count { |v| v.id == id } }
-      uniq_set_by_id(set.select { |v| v.id != id }, result)
+      uniq_seq_by_id(set.select { |v| v.id != id }, result)
+    end
+
+    # destroy recommendations with creating time more than expired limit
+    def destroy_expired_recommends(recommends)
+      recommends.map {|rec| rec unless expired_recommend?(rec.key)}
+    end
+
+    private
+
+    def expired_recommend?(recommend_gen_time)
+      DateTime.now - DateTime.parse(recommend_gen_time) > EXPIRED_LIMIT
     end
   end
 end
