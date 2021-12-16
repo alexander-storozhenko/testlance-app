@@ -34,6 +34,10 @@ class User < ApplicationRecord
   end
 
   def recommends
-    data['test_t_recommend_ids']
+    data['test_t_recommends']
+  end
+
+  def recommends=(value)
+    data['test_t_recommends'] = value
   end
 end

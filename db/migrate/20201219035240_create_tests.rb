@@ -6,10 +6,10 @@ class CreateTests < ActiveRecord::Migration[5.0]
       t.integer :status, default: 0
 
       #TODO Rating
-      t.float :likes, default: 0
+      t.float :rating, default: 0
 
       #TODO Views
-      t.integer :plays, default: 0
+      t.integer :views, default: 0
 
       t.json :rating_raw, default: [0,0,0,0,0]
 

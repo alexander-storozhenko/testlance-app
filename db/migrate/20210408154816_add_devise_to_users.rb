@@ -13,6 +13,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.0]
       t.string :image_url,           default: ""
       t.string :google_access_token, default: ""
 
+      t.json :data, default: {}
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

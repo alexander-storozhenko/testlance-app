@@ -19,9 +19,14 @@ module Recommends
     THRESHOLD_PLAYS = 100.freeze
     EXPIRED_LIMIT = 2.days.freeze
 
+    RecommendItem = Struct.new(:timestamp, :list)
+
     # Simple algorithm in case when app don't know nothing about user.
     def popular_init_seq(limit: 10)
-      TestTemplate.order(rating: :desc).limit(limit)
+      TestTemplate
+        .order(rating: :desc)
+        .limit(limit)
+        .map { |test_t| RecommendItem.new(DateTime.now, [test_t.id]) }
     end
 
     # Algorithm based by tags of visiting test.
@@ -48,7 +53,7 @@ module Recommends
       recommends = uniq_seq_by_id(ranged_set).sort_by { |_, v| v }
 
       if cache_result
-        user.data['test_t_recommend_ids'] << { DateTime.now => recommends }
+        user.recommends << RecommendItem.new(DateTime.now, recommends)
         user.save!
       end
 
@@ -56,7 +61,7 @@ module Recommends
     end
 
     # Recursive function for unique select of
-    # test templates set by count.
+    # test templates sequence by count.
     #
     # Return [{ id => set.count }, ...]
     def uniq_seq_by_id(set, result = [])
@@ -69,7 +74,9 @@ module Recommends
 
     # destroy recommendations with creating time more than expired limit
     def destroy_expired_recommends(recommends)
-      recommends.map {|rec| rec unless expired_recommend?(rec.key)}
+      return if recommends.blank?
+
+      recommends.map { |rec| rec unless expired_recommend?(rec.key) }
     end
 
     private

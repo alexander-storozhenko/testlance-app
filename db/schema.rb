@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 2021_12_14_142835) do
     t.string "title"
     t.string "sub_title"
     t.integer "status", default: 0
-    t.float "likes", default: 0.0
-    t.integer "plays", default: 0
+    t.float "rating", default: 0.0
+    t.integer "views", default: 0
     t.json "rating_raw", default: [0, 0, 0, 0, 0]
     t.json "options"
     t.json "colors"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 2021_12_14_142835) do
     t.integer "login_type", default: 0
     t.string "image_url", default: ""
     t.string "google_access_token", default: ""
+    t.json "data", default: {}
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
