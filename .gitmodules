@@ -1,0 +1,3 @@
+[submodule "vendor/testlance-core"]
+	path = vendor/testlance-core
+	url = https://github.com/alexander-storozhenko/testlance-core
