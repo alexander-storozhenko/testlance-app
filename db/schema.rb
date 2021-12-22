@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_154330) do
+ActiveRecord::Schema.define(version: 2021_12_14_142835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,11 @@ ActiveRecord::Schema.define(version: 2021_12_08_154330) do
     t.index ["test_id"], name: "index_results_on_test_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "number"
+  end
+
   create_table "test_recommends", id: :serial, force: :cascade do |t|
     t.integer "recommend_id"
     t.integer "test_template_id"
@@ -120,8 +125,8 @@ ActiveRecord::Schema.define(version: 2021_12_08_154330) do
     t.string "title"
     t.string "sub_title"
     t.integer "status", default: 0
-    t.float "likes", default: 0.0
-    t.integer "plays", default: 0
+    t.float "rating", default: 0.0
+    t.integer "views", default: 0
     t.json "rating_raw", default: [0, 0, 0, 0, 0]
     t.json "options"
     t.json "colors"
@@ -132,6 +137,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_154330) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "confirm_status", default: 0, null: false
+    t.integer "tags", default: [], array: true
     t.index ["user_id"], name: "index_test_templates_on_user_id"
   end
 
@@ -155,6 +161,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_154330) do
     t.integer "login_type", default: 0
     t.string "image_url", default: ""
     t.string "google_access_token", default: ""
+    t.json "data", default: {}
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

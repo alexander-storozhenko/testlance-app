@@ -1,5 +1,6 @@
 require 'api/defaults'
 require 'tests_helper'
+
 module API
   module Recommends
     class Index < Grape::API

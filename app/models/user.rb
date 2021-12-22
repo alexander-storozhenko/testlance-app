@@ -32,4 +32,12 @@ class User < ApplicationRecord
 
     data.each_with_index { |notification, i| mobile_devices[i].send_notification(notification) }
   end
+
+  def recommends
+    data['test_t_recommends']
+  end
+
+  def recommends=(value)
+    data['test_t_recommends'] = value
+  end
 end
